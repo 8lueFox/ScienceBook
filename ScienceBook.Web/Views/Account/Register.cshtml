@@ -1,41 +1,28 @@
 ﻿@model ScienceBook.Web.Models.RegisterViewModel
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "ScienceBook - Rejestracja";
 }
+    <div class="wrapperLogin fadeInDown">
+        <div id="formContent">
+            <h2 class="active">Zarejestruj się</h2>
 
-<h2>@ViewBag.Title.</h2>
+            <div class="fadeIn first">
+                <i class="fas fa-users" id="icon"></i>
+            </div>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+                @Html.TextBoxFor(m => m.Email, new { @class = "fadeIn second", placeholder = "E-mail" })
+                @Html.TextBoxFor(m => m.FirstName, new { @class = "fadeIn second", placeholder = "Imię" })
+                @Html.TextBoxFor(m => m.LastName, new { @class = "fadeIn second", placeholder = "Nazwisko" })
+                @Html.PasswordFor(m => m.Password, new { @class = "fadeIn third", placeholder = "Hasło" })
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "fadeIn third", placeholder = "Powtórz hasło" })
+                <input type="submit" class="fadeIn fourth" value="Zaloguj się" />
+            }
         </div>
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Register" />
-        </div>
-    </div>
-}
-
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

@@ -21,16 +21,7 @@
             <div class="profile_info">
                 @if (Request.IsAuthenticated)
                 {
-                    <div class="profile_img">
-                        <img src="https://api.adorable.io/avatars/200/KacperJędrzejewski.png">
-                    </div>
-                    <div class="profile_data">
-                        <div class="name">
-                            Kacper
-                            <b>Jędrzejewski</b>
-                        </div>
-                        <div class="role">UI Designer</div>
-                    </div>
+                    Html.RenderAction("GetUserInfo", "Partials");
                 }
                 else
                 {
@@ -80,23 +71,50 @@
                     </li>
                 </ul>
             }
-            <div class="sidebar-footer">
-                <div class="dropdown">
-                    <a href="#">
-                        <i class="fas fa-envelope"></i>
-                    </a>
+            @if (!Request.IsAuthenticated)
+            {
+                <div class="sidebar-footer">
+                    <div class="dropdown">
+                        <a href="/Account/Login">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown">
+                        <a href="/Account/Login">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown">
+                        <a href="/Account/Login">
+                            <i class="fas fa-power-off"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="dropdown">
-                    <a href="#">
-                        <i class="fas fa-cog"></i>
-                    </a>
+            }
+            else
+            {
+                <div class="sidebar-footer">
+                    <div class="dropdown">
+                        <a href="#">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown">
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                    </div>
+                    <div class="dropdown">
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <a href="javascript:document.getElementById('logoutForm').submit()">
+                                <i class="fas fa-power-off"></i>
+                            </a>
+                        }
+                    </div>
                 </div>
-                <div class="dropdown">
-                    <a href="#">
-                        <i class="fas fa-power-off"></i>
-                    </a>
-                </div>
-            </div>
+            }
         </div>
 
     </div>
