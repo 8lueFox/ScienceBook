@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <script src="https://kit.fontawesome.com/ec3b44c4de.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="wrapper">
+        <div class="sidebar" id="sidebar">
+            <div class="brand_name border-down">
+                <a href="/">
+                    Science<span class="text_orange">Book</span>
+                </a>
+            </div>
+            <div class="profile_info">
+                @if (Request.IsAuthenticated)
+                {
+                    <div class="profile_img">
+                        <img src="https://api.adorable.io/avatars/200/KacperJędrzejewski.png">
+                    </div>
+                    <div class="profile_data">
+                        <div class="name">
+                            Kacper
+                            <b>Jędrzejewski</b>
+                        </div>
+                        <div class="role">UI Designer</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="profile_data">
+                        <span class="redDot"><i class="fas fa-circle"></i></span>
+                        <div class="name">You're offline!</div>
+                        <div class="role" style="font-size:10px;">
+                            <br />
+                            <b>@Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: new { })</b> bądź
+                            <b>@Html.ActionLink("zarejestruj się", "Register", "Account", routeValues: null, htmlAttributes: new { })</b>
+                            <br /> i zacznij korzytać ze wszystkich możliwości Science
+                            <span class="text_orange">Book</span>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <div style="clear:both;" class="border-down"></div>
+            <div class="search border-down">
+                <div class="form-group has-search">
+                    <span class="fa fa-search form-control-feedback"></span>
+                    <input type="text" class="form-control" placeholder="Szukaj...">
+                </div>
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <ul class="sidebar_menu">
+                    <li class="dropdown-btn">
+                        <a href="#">
+                            <div class="icon active">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <div class="title">Koła naukowe</div>
+                        </a>
+                    </li>
+                    <div class="dropdown-container">
+                        <a href="#">Genbit</a>
+                        <a href="#">Papugi</a>
+                    </div>
+                    <li>
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            <div class="title">Jobs</div>
+                        </a>
+                    </li>
+                </ul>
+            }
+            <div class="sidebar-footer">
+                <div class="dropdown">
+                    <a href="#">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+                <div class="dropdown">
+                    <a href="#">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </div>
+                <div class="dropdown">
+                    <a href="#">
+                        <i class="fas fa-power-off"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="main_container continer">
+        <a id="toggle-sidebar" class="btn open-menu" href="#" role="button">
+            <i class="fas fa-align-left"></i>
+            <span>Menu</span>
+        </a>
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Kacper Jędrzejewski</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <script>
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+
+        var openSideBar = document.getElementById("toggle-sidebar");
+        var sideBar = document.getElementById("sidebar");
+
+        openSideBar.addEventListener("click", function () {
+            sideBar.style.display = sideBar.style.display === 'none' ? 'block' : 'none';
+            openSideBar.style.marginLeft = openSideBar.style.marginLeft === '0px' ? '295px' : '0px';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700&display=swap');
+
+* {
+    list-style: none;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #fff;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+    .wrapper .sidebar {
+        position: relative;
+    }
+
+    .wrapper .sidebar {
+        width: 300px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        z-index: 999;
+        transition: all 0.3s ease;
+        background: #27282A;
+    }
+
+.main_container {
+    margin-left: 300px;
+    width: calc(100% - 300px);
+    transition: all 0.3s ease;
+}
+
+    .wrapper .sidebar .brand_name {
+        color: #bcbcbc;
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        padding: 10px;
+    }
+
+        .wrapper .sidebar .brand_name a:hover {
+            color: white;
+            text-decoration:none;
+        }
+
+        .wrapper .sidebar .profile_info {
+            padding: 20px;
+        }
+
+            .wrapper .sidebar .profile_info .redDot {
+                line-height: 26px;
+                color: red;
+                font-size: 6px;
+                text-align: center;
+                float: left;
+                margin-right: 5px;
+            }
+
+        .wrapper .sidebar .profile_info .profile_img {
+            width: 50px;
+            margin: 0;
+        }
+
+            .wrapper .sidebar .profile_info .profile_img img {
+                width: 100%;
+                display: block;
+                border-radius: 50%;
+                float: left;
+            }
+
+        .wrapper .sidebar .profile_info .profile_data {
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+            margin-left: 20px;
+            float: left;
+            margin-bottom: 30px;
+        }
+
+            .wrapper .sidebar .profile_info .profile_data .role {
+                font-weight: 300;
+                color: #DBDBDB;
+            }
+
+    .wrapper .sidebar .search {
+        padding: 10px;
+    }
+
+.text_orange {
+    color: #f35b3f;
+}
+
+.border-down {
+    border-bottom: 1px solid #525252;
+}
+
+.has-search .form-control {
+    background: #525252;
+    border: 0px;
+    margin-top: 10px;
+    padding-left: 2.375rem;
+}
+
+    .has-search .form-control:focus {
+        background: #525252;
+        color: #DBDBDB;
+    }
+
+    .has-search .form-control:not(:focus) {
+        background: #525252;
+        color: #DBDBDB;
+    }
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #f35b3f;
+}
+
+.wrapper .sidebar_menu li a {
+    display: block;
+    height: 50px;
+    width: 100%;
+    color: #88a3d0;
+    position: relative;
+    margin-bottom: 10px;
+    padding: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+    .wrapper .sidebar_menu li a::after {
+        font-weight: 900;
+        content: ' \003E';
+        display: inline-block;
+        font-style: normal;
+        font-variant: normal;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        text-align: center;
+        background: 0 0;
+        position: absolute;
+        right: 15px;
+        top: 14px;
+        padding-top: 8px;
+    }
+
+.wrapper .sidebar_menu li:hover a .icon i {
+    color: #f35b3f;
+    animation-name: poruszaj;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes poruszaj {
+    0% {
+        transform: rotate(15deg);
+    }
+
+    10% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-15deg);
+    }
+
+    30% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(10deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(-10deg);
+    }
+
+    70% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(5deg);
+    }
+
+    90% {
+        transform: rotate(-5deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.wrapper .sidebar_menu li a .icon {
+    margin-right: 10px;
+    font-size: 12px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    flex-shrink: 0;
+    background-color: rgba(81, 81, 81, 0.5);
+    float: left;
+}
+
+    .wrapper .sidebar_menu li a .icon:active,
+    .wrapper .sidebar_menu li a .icon.active {
+        color: #f35b3f;
+    }
+
+.wrapper .sidebar_menu li a .title {
+    padding-top: 5px;
+    text-decoration: none;
+}
+
+.dropdown-container {
+    display: none;
+}
+
+    .dropdown-container a {
+        display: block;
+        width: 100%;
+        margin-left: 30%;
+        text-decoration: none;
+        color: white;
+        font-weight: 400;
+        padding: 5px;
+    }
+
+        .dropdown-container a:hover {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+        }
+
+        .dropdown-container a::before {
+            content: ' \00B7';
+        }
+
+.sidebar-footer {
+    background-color: rgba(56, 56, 56, 0.5);
+    -webkit-box-shadow: 0px -1px 5px rgba(29, 29, 29, 0.8);
+    box-shadow: 0px -1px 5px rgba(29, 29, 29, 0.8);
+    border-top: 1px solid #383838;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    display: flex;
+}
+
+    .sidebar-footer .dropdown {
+        color: #c7c7c7;
+        text-align: center;
+        line-height: 35px;
+        width: calc(100% /3);
+    }
+
+        .sidebar-footer .dropdown i:hover {
+            color: #f35b3f;
+        }
+
+.open-menu {
+    box-shadow: 3px 3px 3px rgba(51, 51, 51, 0.2);
+    margin-left: 300px;
+    margin-right: 5px;
+    padding: .75rem 1.5rem;
+    background: #f35b3f;
+    border: 0;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 300;
+    color: #fff;
+    position: fixed;
+    top: 5px;
+    left: 5px;
+    z-index: 997;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    display:none;
+}
+
+@media only screen and (max-width: 900px){
+    .open-menu{
+        display:block;
+        margin-left:0;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .main_container{
+        margin-left:0px;
+    }
+}
+
+@media only screen and (min-width: 901){
+    .sidebar{
+        display:block;
+    }
+}
+
+    .open-menu:hover,
+    .open-menu{
+        background: #f35b3f;
+    }
+a {
+    color: white;
+}
+
+.row{
+    margin-left: 0px;
+    margin-right: 0px;
+}
