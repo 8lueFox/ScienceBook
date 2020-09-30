@@ -16,6 +16,11 @@ namespace ScienceBook.Web.DAL
         }
 
         public DbSet<Member> Members { get; set; }
+        public DbSet<ScienceClub> ScienceClubs { get; set; }
+        public DbSet<CategoryOfScienceClub> CategoriesOfScienceClub { get; set; }
+        public DbSet<FieldOfStudy> FieldsOfStudies { get; set; }
+        public DbSet<Department> Departments { get; set; }
+        public DbSet<University> Universities { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

@@ -1,74 +1,60 @@
 ﻿@model ScienceBook.Web.Models.DbModels.Member
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = Model.FirstName + " " + Model.LastName + " - ScienceBook";
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>Member</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.JoinDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.JoinDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Logo)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Logo)
-        </dd>
-
-    </dl>
+<div class="userProfile">
+    <div class="info">
+        <div class="profile_logo">
+            @if (Model.Logo != null)
+            {
+                <img src="@Model.Logo" />
+            }
+            else
+            {
+                <img src='https://api.adorable.io/avatars/200/@( Model.FirstName + Model.LastName ).png'>
+            }
+        </div>
+        <div class="profile_name">
+            <div class="profile_name">
+                <div class="name">
+                    @Model.FirstName @Model.LastName
+                </div>
+                <div class="username">
+                    @Model.Username
+                </div>
+            </div>
+        </div>
+        <hr style="width:70%; margin-left:15%;" />
+    </div>
+    <div class="data row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 row">
+            <div class="cloud user_info col-md-5">
+                <h3>Informacje ogólne</h3>
+                <div>
+                    <i class="fas fa-graduation-cap"></i>
+                    Studiuje kierunek o profilu:
+                    <span class="respect">@Model.FieldOfStudy.Name</span>
+                </div>
+                <div>
+                    <i class="fas fa-briefcase"></i>
+                    Przewodniczący w:
+                    <span class="respect">KNSI Genbit</span>
+                </div>
+                <div>
+                    <i class="fas fa-atom"></i> 
+                    @if(Model.ScienceClubs.Count == 1)
+                    {
+                        <span>Należy do 1 koła naukowego</span>
+                    }
+                    else
+                    {
+                        <span>Należy do @Model.ScienceClubs.Count kół naukowych</span>
+                    }
+                </div>
+            </div>
+            <div class="cloud col-md-6"></div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

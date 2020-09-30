@@ -1,14 +1,16 @@
-﻿<div class="profile_img">
-    <img src='https://api.adorable.io/avatars/200/@(ViewBag.Username).png'>
-</div>
-
-<div class="profile_data">
-    <div class="name">
-        @ViewBag.Member.FirstName
-        <b>@ViewBag.Member.LastName</b>
+﻿<a href="/Members/Details/@(ViewBag.Member.ID)">
+    <div class="profile_img">
+        <img src='https://api.adorable.io/avatars/200/@(ViewBag.Username).png'>
     </div>
-    @if (@ViewBag.Member.Username != null) 
-    { 
-        <div class="role">@ViewBag.Member.Username</div>
-    }
-</div>
+
+    <div class="profile_data">
+        <div class="name">
+            @ViewBag.Member.FirstName
+            <b>@ViewBag.Member.LastName</b>
+        </div>
+        @if (@ViewBag.Member.Username != null)
+        {
+            <div class="role">@ViewBag.Member.Username</div>
+        }
+    </div>
+</a>

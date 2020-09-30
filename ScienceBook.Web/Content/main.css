@@ -11,8 +11,8 @@
     flex-direction: column;
     justify-content: center;
     width: 500px;
-    min-height:300px;
-    padding:20px;
+    min-height: 300px;
+    padding: 20px;
     margin: 100px auto 300px auto;
 }
 
@@ -90,7 +90,7 @@
             background-color: #f3753f;
         }
 
-        .wrapperLogin input[type=submit]:active{
+        .wrapperLogin input[type=submit]:active {
             -moz-transform: scale(0.95);
             -webkit-transform: scale(0.95);
             -o-transform: scale(0.95);
@@ -123,18 +123,18 @@
             border-bottom: 2px solid #5fbae9;
         }
 
-    .fadeInDown {
-        -webkit-animation-name: fadeInDown;
-        animation-name: fadeInDown;
-        -webkit-animation-duration: 1s;
-        animation-duration: 1s;
-        -webkit-animation-fill-mode: both;
-        animation-fill-mode: both;
-    }
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
 
-@media only screen and (max-width:400){
-    .wrapperLogin{
-        margin-left:0px;
+@media only screen and (max-width:400) {
+    .wrapperLogin {
+        margin-left: 0px;
     }
 }
 
@@ -253,3 +253,122 @@
         width: 100%;
     }
 
+/*
+    PROFILE PAGE
+*/
+.userProfile {
+    background-color: #F0F2F5;
+}
+
+    .userProfile .info {
+        width: 100%;
+        background-color: #fff;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        box-shadow: 0 8px 6px -6px #f35b3f;
+        padding-bottom: 10px;
+    }
+
+        .userProfile .info .profile_logo img {
+            border: 2px solid #27282A;
+            border-radius: 50%;
+            width: 150px;
+        }
+
+        .userProfile .info .profile_name .name {
+            font-weight: 700;
+            font-size: 22px;
+        }
+
+        .userProfile .info .profile_name .username {
+            font-weight: 300;
+            font-size: 20px;
+        }
+
+.respect {
+    font-weight: 500;
+}
+
+.cloud {
+    padding: 10px;
+    background-color: #fff;
+    margin: 5px;
+    border-radius: 8px;
+}
+
+.data .user_info h3 {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.data .user_info div {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/*
+    SCIENCE CLUB PAGE
+*/
+
+.clubProfile {
+    background-color: #F0F2F5;
+}
+
+    .clubProfile .info {
+        width: 100%;
+        background-color: #fff;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        box-shadow: 0 8px 6px -6px #f35b3f;
+        padding-bottom: 10px;
+    }
+
+        .clubProfile .info .clubLogo {
+            float: left;
+        }
+
+            .clubProfile .info .clubLogo img {
+                border: 2px solid #27282A;
+                border-radius: 50%;
+                width: 150px;
+                margin: 5px;
+            }
+
+        .clubProfile .info .clubName {
+            padding-top: 100px;
+            margin-left: 15px;
+        }
+
+            .clubProfile .info .clubName .name {
+                font-weight: 700;
+                font-size: 22px;
+            }
+
+            .clubProfile .info .clubName .category {
+                font-weight: 300;
+                font-size: 16px;
+            }
+        .clubProfile .info .btn{
+            margin-top: 110px;
+        }
+
+        .clubProfile .info .clubButtons{
+            text-align: right;
+        }
+
+        @media only screen and (max-width: 770px) {
+            .clubProfile .info .btn {
+        margin-top: 10px;
+    }
+}
+
+.data .user_info h3 {
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.data .user_info div {
+    margin-bottom: 10px;
+    font-size: 14px;
+}

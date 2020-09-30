@@ -6,6 +6,8 @@
     <title>@ViewBag.Title</title>
     <script src="https://kit.fontawesome.com/ec3b44c4de.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#fff" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -30,7 +32,7 @@
                         <div class="name">You're offline!</div>
                         <div class="role" style="font-size:10px;">
                             <br />
-                            <b>@Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: new { })</b> bądź
+                            <b>@Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: new { })</b>/
                             <b>@Html.ActionLink("zarejestruj się", "Register", "Account", routeValues: null, htmlAttributes: new { })</b>
                             <br /> i zacznij korzytać ze wszystkich możliwości Science
                             <span class="text_orange">Book</span>
@@ -41,35 +43,38 @@
             </div>
             <div style="clear:both;" class="border-down"></div>
             <div class="search border-down">
-                <div class="form-group has-search">
-                    <span class="fa fa-search form-control-feedback"></span>
-                    <input type="text" class="form-control" placeholder="Szukaj...">
-                </div>
+                @using (Html.BeginForm("Search", "Search", FormMethod.Get, new { }))
+                {
+                    <div class="form-group has-search">
+                        <span class="fa fa-search form-control-feedback"></span>
+                        <input type="search" name="searchString" id="searchString" pattern=".*\S.*" required class="form-control" placeholder="Szukaj...">
+                    </div>
+                }
             </div>
             @if (Request.IsAuthenticated)
             {
-                <ul class="sidebar_menu">
-                    <li class="dropdown-btn">
-                        <a href="#">
-                            <div class="icon active">
-                                <i class="fas fa-laptop"></i>
-                            </div>
-                            <div class="title">Koła naukowe</div>
-                        </a>
-                    </li>
-                    <div class="dropdown-container">
-                        <a href="#">Genbit</a>
-                        <a href="#">Papugi</a>
+        <ul class="sidebar_menu">
+            <li class="dropdown-btn">
+                <a href="#">
+                    <div class="icon active">
+                        <i class="fas fa-laptop"></i>
                     </div>
-                    <li>
-                        <a href="#">
-                            <div class="icon">
-                                <i class="fas fa-newspaper"></i>
-                            </div>
-                            <div class="title">Jobs</div>
-                        </a>
-                    </li>
-                </ul>
+                    <div class="title">Koła naukowe</div>
+                </a>
+            </li>
+            @if (Request.IsAuthenticated)
+            {
+                Html.RenderAction("GetUserScienceClubs", "Partials");
+            }
+            <li>
+                <a href="#">
+                    <div class="icon">
+                        <i class="fas fa-newspaper"></i>
+                    </div>
+                    <div class="title">Jobs</div>
+                </a>
+            </li>
+        </ul>
             }
             @if (!Request.IsAuthenticated)
             {
@@ -159,6 +164,12 @@
             sideBar.style.display = sideBar.style.display === 'none' ? 'block' : 'none';
             openSideBar.style.marginLeft = openSideBar.style.marginLeft === '0px' ? '295px' : '0px';
         });
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/serviceworker.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
     </script>
 </body>
 </html>

@@ -1,0 +1,64 @@
+﻿@model ScienceBook.Web.Models.DbModels.ScienceClub
+
+@{
+    ViewBag.Title = Model.Name + " - ScienceClub";
+}
+
+<div class="clubProfile">
+    <div class="info row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="clubLogo">
+                <img src="@ViewBag.Logo" />
+            </div>
+            <div class="clubName">
+                <div class="name">
+                    @Model.Name
+                </div>
+                <div class="category">
+                    @Model.CategoryOfScienceClub.Name
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 clubButtons">
+            @if (!ViewBag.IsJoined && Request.IsAuthenticated)
+            {
+                <a href="/ScienceClubs/Join/@Model.ID" class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
+            }
+            else if(!ViewBag.IsJoined)
+            {
+                <a href='/Account/Login?returnUrl=/ScienceClubs/Details/@Model.ID' class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
+            }
+            @if (Request.IsAuthenticated)
+            {
+                <a href="#" class="btn btn-light btn-outline-dark"><i class="far fa-envelope" style="margin-right:5px;"></i>Wyślij wiadomość</a>
+            }
+        </div>
+        <hr style="width:70%; margin-left:15%;" />
+    </div>
+    <div class="data row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8 row">
+            <div class="cloud user_info col-md-5">
+                <h3>Informacje ogólne</h3>
+                <div>
+                    <i class="fas fa-university"></i>
+                    Uniwersytet:
+                    <span class="respect">@Model.Department.University.Name</span>
+                </div>
+                <div>
+                    <i class="fas fa-school"></i>
+                    Wydział:
+                    <span class="respect">@Model.Department.Name</span>
+                </div>
+                <div>
+                    <i class="fas fa-users" id="icon"></i>
+                    Liczba członków:
+                    <span class="respect">@Model.Members.Count</span>
+                </div>
+            </div>
+            <div class="cloud col-md-6"></div>
+        </div>
+    </div>
+</div>
+

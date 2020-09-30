@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using ScienceBook.Web.DAL;
 using ScienceBook.Web.Models;
+using ScienceBook.Web.Models.DbModels;
+using ScienceBook.Web.Models.Statics;
 
 namespace ScienceBook.Web.Controllers
 {
@@ -17,15 +21,18 @@ namespace ScienceBook.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ScienceBookContext db;
 
         public AccountController()
         {
+            db = new ScienceBookContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            db = new ScienceBookContext();
         }
 
         public ApplicationSignInManager SignInManager
@@ -73,22 +80,26 @@ namespace ScienceBook.Web.Controllers
                 return View(model);
             }
 
-            // This doesn't count login failures towards account lockout
-            // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                case SignInStatus.Failure:
-                default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+            ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
+
+            if (user.EmailConfirmed) {
+                var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        return RedirectToLocal(returnUrl);
+                    case SignInStatus.LockedOut:
+                        return View("Lockout");
+                    case SignInStatus.RequiresVerification:
+                        return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    case SignInStatus.Failure:
+                    default:
+                        ModelState.AddModelError("", "Invalid login attempt.");
+                        return View(model);
+                }
             }
+            return View("PleaseConfirmEmail");
+            
         }
 
         //
@@ -155,21 +166,40 @@ namespace ScienceBook.Web.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+                    userManager.AddToRole(user.Id, "User");
 
-                    return RedirectToAction("Index", "Home");
+                    Member member = new Member
+                    {
+                        Email = model.Email,
+                        LastName = model.LastName,
+                        FirstName = model.FirstName,
+                        JoinDate = DateTime.Now,
+                        FieldOfStudyID = 1
+                    };
+
+                    db.Members.Add(member);
+                    db.SaveChanges();
+
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    EmailSender.Send(member.Email, "ScienceBook - confirm email", $"Please confirm your account by clicking <a href='{callbackUrl}'>here</a>", true);
+
+                    return RedirectToAction("PleaseConfirmEmail", "Account");
                 }
                 AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        //
+        // GET: /Account/PleaseConfirmEmail
+        [AllowAnonymous]
+        public ActionResult PleaseConfirmEmail()
+        {
+            return View("PleaseConfirmEmail");
         }
 
         //

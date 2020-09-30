@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ScienceBook.Web.Models.ViewModels.SearchingResult>
+
+@{
+    ViewBag.Title = "ScienceBook - '" + ViewBag.SearchString +"'";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Nazwa
+        </th>
+        <th>
+            Logo
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.Name, "Details", item.Type, new { id = item.Id }, new { @class = "text-warning" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Logo)
+            </td>
+        </tr>
+    }
+
+</table>
