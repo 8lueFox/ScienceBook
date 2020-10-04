@@ -88,7 +88,8 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 1,
                     Name = "KNS Genbit",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png"))
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png")),
+                    Tasks = new List<Task>()
                 },
                 new ScienceClub
                 {
@@ -96,7 +97,8 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 3,
                     Name = "Papugi",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg"))
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg")),
+                    Tasks = new List<Task>()
                 },
                 new ScienceClub
                 {
@@ -104,11 +106,84 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 4,
                     Name = "Łabędzie",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg"))
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg")),
+                    Tasks = new List<Task>()
                 },
             };
 
             sc.ForEach(s => context.ScienceClubs.Add(s));
+            context.SaveChanges();
+
+            var catsOfTask = new List<CategoryOfTask>
+            {
+                new CategoryOfTask
+                {
+                    Name = "Pilne",
+                    ScienceClub = sc[0],
+                },
+                new CategoryOfTask
+                {
+                    Name = "Na wczoraj",
+                    ScienceClub = sc[0],
+                },
+                new CategoryOfTask
+                {
+                    Name = "W wolnej chwili",
+                    ScienceClub = sc[0],
+                },
+                new CategoryOfTask
+                {
+                    Name = "Pilne",
+                    ScienceClub = sc[1],
+                },
+                new CategoryOfTask
+                {
+                    Name = "Na wczoraj",
+                    ScienceClub = sc[1],
+                },
+                new CategoryOfTask
+                {
+                    Name = "W wolnej chwili",
+                    ScienceClub = sc[1],
+                },new CategoryOfTask
+                {
+                    Name = "Pilne",
+                    ScienceClub = sc[2],
+                },
+                new CategoryOfTask
+                {
+                    Name = "Na wczoraj",
+                    ScienceClub = sc[2],
+                },
+                new CategoryOfTask
+                {
+                    Name = "W wolnej chwili",
+                    ScienceClub = sc[2],
+                },
+            };
+            catsOfTask.ForEach(c => context.CategoriesOfTask.Add(c));
+            context.SaveChanges();
+
+            var taskState = new List<TaskState>
+            {
+                new TaskState
+                {
+                    Name = "Nowe"
+                },
+                new TaskState
+                {
+                    Name = "W trakcie"
+                },
+                new TaskState
+                {
+                    Name = "Zakończone"
+                },
+                new TaskState
+                {
+                    Name = "Usunięte"
+                },
+            };
+            taskState.ForEach(t => context.TaskStates.Add(t));
             context.SaveChanges();
 
             var mem = new List<Member>

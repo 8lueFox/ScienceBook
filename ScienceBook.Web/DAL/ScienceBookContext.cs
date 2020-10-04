@@ -21,10 +21,18 @@ namespace ScienceBook.Web.DAL
         public DbSet<FieldOfStudy> FieldsOfStudies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<University> Universities { get; set; }
+        public DbSet<Task> Tasks { get; set; }
+        public DbSet<CategoryOfTask> CategoriesOfTask { get; set; }
+        public DbSet<TaskState> TaskStates { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<Task>()
+                .HasRequired(t => t.ScienceClub)
+                .WithMany()
+                .WillCascadeOnDelete(false);
         }
     }
 }

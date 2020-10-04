@@ -1,0 +1,22 @@
+﻿<div class="row">
+    @for (int i = 0; i < ViewBag.Members.Count; i++)
+    {
+    <div class="col-12 memberListItem">
+        <a href="/Members/Details/@ViewBag.Members[i].ID">
+            @if (ViewBag.Logos[i] == null)
+            {
+                <img src="@ViewBag.Logos[i]" class="imgMemberListItem" />
+            }
+            else
+            {
+                <img src='https://api.adorable.io/avatars/200/@( ViewBag.Members[i].FirstName + ViewBag.Members[i].LastName ).png' class="imgMemberListItem">
+            }
+            <div class="vl"></div>
+            <span class="dataMemberListItem">
+                @ViewBag.Members[i].FirstName @ViewBag.Members[i].LastName
+            </span>
+        </a>
+        <hr />
+    </div>
+    }
+</div>

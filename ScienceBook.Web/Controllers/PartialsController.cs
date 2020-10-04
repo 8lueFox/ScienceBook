@@ -32,5 +32,21 @@ namespace ScienceBook.Web.Controllers
             ViewBag.Images = images;
             return PartialView("_UserScienceClubs");
         }
+
+        public ActionResult GetScienceClubMembers(int id)
+        {
+            var scienceClub = db.ScienceClubs.Find(id);
+            var members = scienceClub.Members;
+            var logos = new List<string>();
+
+            foreach (var item in members)
+            {
+                logos.Add(Imager.ByteArrayToStringImage(item.Logo));
+            }
+            ViewBag.Logos = logos;
+            ViewBag.Members = members;
+
+            return PartialView("_ScienceClubMembers");
+        }
     }
 }

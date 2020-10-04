@@ -18,7 +18,7 @@ namespace ScienceBook.Web.Models.DbModels
         public virtual Department Department { get; set; }
         public virtual CategoryOfScienceClub CategoryOfScienceClub { get; set; }
         public virtual List<Member> Members { get; set; }
-        //public virtual List<Task> Tasks { get; set; }
-        //public virtual List<CategoryOfTask> CategoriesOfTasks { get; set; }
+        public virtual List<Task> Tasks { get; set; }
+        public virtual List<CategoryOfTask> CategoriesOfTasks { get; set; }
     }
 }

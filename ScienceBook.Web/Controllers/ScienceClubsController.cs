@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ScienceBook.Web.DAL;
 using ScienceBook.Web.Models.DbModels;
 using ScienceBook.Web.Models.Statics;
+using ScienceBook.Web.Models.ViewModels;
 
 namespace ScienceBook.Web.Controllers
 {
@@ -41,7 +42,21 @@ namespace ScienceBook.Web.Controllers
                 ViewBag.IsJoined = false;
 
             ViewBag.Logo = Imager.ByteArrayToStringImage(scienceClub.Logo);
-            return View(scienceClub);
+            ScienceClubViewModel view = new ScienceClubViewModel();
+            view.ScienceClub = scienceClub;
+            var tasks = db.Tasks.Where(t => t.ScienceClubID == scienceClub.ID).ToList();
+            var temp = new List<Task>();
+            foreach (var item in tasks)
+            {
+                if(item.EndDay >= DateTime.Now)
+                {
+                    temp.Add(item);
+                }
+            }
+            tasks = temp;
+            tasks = tasks.OrderBy(t => t.StartDay).ToList();
+            view.Tasks = tasks;
+            return View(view);
         }
 
         // GET: ScienceClubs/Join/5

@@ -291,9 +291,8 @@
 }
 
 .cloud {
-    padding: 10px;
+    padding: 20px;
     background-color: #fff;
-    margin: 5px;
     border-radius: 8px;
 }
 
@@ -357,18 +356,102 @@
             text-align: right;
         }
 
-        @media only screen and (max-width: 770px) {
-            .clubProfile .info .btn {
+.memberListItem a{
+    color: black;
+    text-decoration: none;
+}
+
+.imgMemberListItem {
+    width: 40px;
+    border: 2px solid #27282A;
+    border-radius: 50%;
+    float: left;
+}
+
+.dataMemberListItem{
+    line-height:30px;
+    font-size: 16px;
+    font-weight: 500;
+    margin-left: 10px;
+}
+
+@media only screen and (max-width: 770px) {
+    .clubProfile .info .btn {
         margin-top: 10px;
     }
 }
 
-.data .user_info h3 {
+.cloud h3 {
     font-weight: 700;
     font-size: 18px;
 }
 
-.data .user_info div {
+.cloud h5 {
+    text-align: right;
+    color: #f35b3f;
+}
+
+    .cloud h5 i:hover {
+        animation-name: zakrecPlusem;
+        animation-duration: 0.4s;
+        animation-iteration-count: 1;
+        text-align: right;
+    }
+
+@keyframes zakrecPlusem {
+    0% {
+        transform: rotate(20deg);
+    }
+
+    10% {
+        transform: rotate(0deg);
+    }
+
+    20% {
+        transform: rotate(-20deg);
+    }
+
+    30% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(20deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    60% {
+        transform: rotate(-20deg);
+    }
+
+    70% {
+        transform: rotate(0deg);
+    }
+
+    80% {
+        transform: rotate(10deg);
+    }
+
+    90% {
+        transform: rotate(-10deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.cloud div {
     margin-bottom: 10px;
     font-size: 14px;
+}
+
+.vl {
+    border-left: 1px solid #DBDBDB;
+    height: 40px;
+    float:left;
+    margin: 0 10px 0 10px;
 }
