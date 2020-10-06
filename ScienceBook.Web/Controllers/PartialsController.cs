@@ -41,11 +41,17 @@ namespace ScienceBook.Web.Controllers
             var scienceClub = db.ScienceClubs.Find(id);
             var members = scienceClub.Members;
             var logos = new List<string>();
+            var roles = new List<string>();
 
             foreach (var item in members)
             {
                 logos.Add(Imager.ByteArrayToStringImage(item.Logo));
+                roles.Add(db.ScienceClubs_Members_Roles
+                            .Where(smr => smr.MemberID == item.ID && smr.Role.ScienceClubID == id)
+                            .FirstOrDefault()
+                            .Role.Name);
             }
+            ViewBag.Roles = roles;
             ViewBag.Logos = logos;
             ViewBag.Members = members;
 

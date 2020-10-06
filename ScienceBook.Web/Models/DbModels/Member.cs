@@ -6,6 +6,7 @@ using System.Web;
 
 namespace ScienceBook.Web.Models.DbModels
 {
+    [Table("Members")]
     public class Member
     {
         public int ID { get; set; }
@@ -22,6 +23,7 @@ namespace ScienceBook.Web.Models.DbModels
 
         public virtual FieldOfStudy FieldOfStudy { get; set; }
         public virtual List<ScienceClub> ScienceClubs { get; set; }
+        public virtual List<ScienceClub_Member_Role> ScienceClub_Member_Role { get; set; }
         //public virtual List<Task> Tasks { get; set; }
     }
 }

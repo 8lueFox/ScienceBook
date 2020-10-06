@@ -1,5 +1,8 @@
-﻿namespace ScienceBook.Web.Models.DbModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ScienceBook.Web.Models.DbModels
 {
+    [Table("TaskStates")]
     public class TaskState
     {
         public int ID { get; set; }

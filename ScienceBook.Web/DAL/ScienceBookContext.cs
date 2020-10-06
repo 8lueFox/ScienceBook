@@ -24,12 +24,19 @@ namespace ScienceBook.Web.DAL
         public DbSet<Task> Tasks { get; set; }
         public DbSet<CategoryOfTask> CategoriesOfTask { get; set; }
         public DbSet<TaskState> TaskStates { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<ScienceClub_Member_Role> ScienceClubs_Members_Roles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<Task>()
+                .HasRequired(t => t.ScienceClub)
+                .WithMany()
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Role>()
                 .HasRequired(t => t.ScienceClub)
                 .WithMany()
                 .WillCascadeOnDelete(false);

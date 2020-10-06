@@ -114,6 +114,28 @@ namespace ScienceBook.Web.DAL
             sc.ForEach(s => context.ScienceClubs.Add(s));
             context.SaveChanges();
 
+            var roles = new List<Role>
+            {
+                new Role{Name = "Członek", ScienceClubID = 1 },
+                new Role{Name = "Sekretarz", ScienceClubID = 1 },
+                new Role{Name = "Vice-przewodniczący", ScienceClubID = 1 },
+                new Role{Name = "Przewodniczący", ScienceClubID = 1 },
+                new Role{Name = "Opiekun koła", ScienceClubID = 1 },
+                new Role{Name = "Członek", ScienceClubID = 2 },
+                new Role{Name = "Sekretarz", ScienceClubID = 2 },
+                new Role{Name = "Vice-przewodniczący", ScienceClubID = 2 },
+                new Role{Name = "Przewodniczący", ScienceClubID = 2 },
+                new Role{Name = "Opiekun koła", ScienceClubID = 2 },
+                new Role{Name = "Członek", ScienceClubID = 3 },
+                new Role{Name = "Sekretarz", ScienceClubID = 3 },
+                new Role{Name = "Vice-przewodniczący", ScienceClubID = 3 },
+                new Role{Name = "Przewodniczący", ScienceClubID = 3 },
+                new Role{Name = "Opiekun koła", ScienceClubID = 3 }
+            };
+
+            roles.ForEach(r => context.Roles.Add(r));
+            context.SaveChanges();
+
             var catsOfTask = new List<CategoryOfTask>
             {
                 new CategoryOfTask
@@ -202,6 +224,29 @@ namespace ScienceBook.Web.DAL
 
             mem[0].ScienceClubs.Add(context.ScienceClubs.Where(s => s.Name.Contains("Genbit")).Single());
             mem.ForEach(m => context.Members.Add(m));
+            context.SaveChanges();
+
+            var sc1 = context.ScienceClubs.Find(1);
+            sc1.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
+            sc1.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
+            {
+                Member = context.Members.Find(1),
+                Role = context.Roles.Find(4)
+            });
+            var sc2 = context.ScienceClubs.Find(2);
+            sc2.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
+            sc2.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
+            {
+                Member = context.Members.Find(1),
+                Role = context.Roles.Find(9)
+            });
+            var sc3 = context.ScienceClubs.Find(3);
+            sc3.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
+            sc3.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
+            {
+                Member = context.Members.Find(1),
+                Role = context.Roles.Find(14)
+            });
             context.SaveChanges();
         }
     }

@@ -1,5 +1,8 @@
-﻿namespace ScienceBook.Web.Models.DbModels
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ScienceBook.Web.Models.DbModels
 {
+    [Table("CategoriesOfTask")]
     public class CategoryOfTask
     {
         public int ID { get; set; }

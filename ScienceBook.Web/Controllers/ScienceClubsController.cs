@@ -72,6 +72,13 @@ namespace ScienceBook.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             db.ScienceClubs.Find(id).Members.Add(db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault());
+
+            var scienceClub = db.ScienceClubs.Find(id);
+            db.ScienceClubs_Members_Roles.Add(new ScienceClub_Member_Role
+            {
+                Member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault(),
+                Role = scienceClub.Roles.Where(r => r.Name.Equals("Członek")).FirstOrDefault()
+            });
             db.SaveChanges();
 
             return RedirectToAction("Details", "ScienceClubs", new { id = id});
@@ -138,14 +145,32 @@ namespace ScienceBook.Web.Controllers
                     new CategoryOfTask{Name = "Na wczoraj"},
                     new CategoryOfTask{Name = "W wolnej chwili"}
                 },
-                Members = new List<Member>()
+                Roles = new List<Role>
+                {
+                    new Role{ Name = "Członek"},
+                    new Role{ Name = "Sekretarz"},
+                    new Role{ Name = "Vice-przewodniczący"},
+                    new Role{ Name = "Przewodniczący"},
+                    new Role{ Name = "Opiekun koła"},
+                },
+                Members = new List<Member>(), 
             };
+
             scienceClub.Members.Add(db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault());
-             
+
             if (ModelState.IsValid)
             {
                 db.ScienceClubs.Add(scienceClub);
                 db.SaveChanges();
+                scienceClub = db.ScienceClubs.Where(sc => sc.Name.Equals(scienceClub.Name)).FirstOrDefault();
+                scienceClub.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
+                db.ScienceClubs_Members_Roles.Add(new ScienceClub_Member_Role
+                {
+                    Member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault(),
+                    Role = scienceClub.Roles.Where(r => r.Name.Equals("Przewodniczący")).FirstOrDefault()
+                });
+                db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

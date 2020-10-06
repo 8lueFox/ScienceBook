@@ -187,7 +187,9 @@
     <Compile Include="Models\DbModels\Department.cs" />
     <Compile Include="Models\DbModels\FieldOfStudy.cs" />
     <Compile Include="Models\DbModels\Member.cs" />
+    <Compile Include="Models\DbModels\Role.cs" />
     <Compile Include="Models\DbModels\ScienceClub.cs" />
+    <Compile Include="Models\DbModels\ScienceClub_Member_Role.cs" />
     <Compile Include="Models\DbModels\Task.cs" />
     <Compile Include="Models\DbModels\TaskState.cs" />
     <Compile Include="Models\DbModels\University.cs" />
