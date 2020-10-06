@@ -14,6 +14,7 @@ namespace ScienceBook.Web.Models.DbModels
         public string Description { get; set; }
         public DateTime CreationDate { get; set; }
         public byte[] Logo { get; set; }
+        public string LogoS { get; set; }
 
         public virtual Department Department { get; set; }
         public virtual CategoryOfScienceClub CategoryOfScienceClub { get; set; }

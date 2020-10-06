@@ -455,3 +455,21 @@
     float:left;
     margin: 0 10px 0 10px;
 }
+
+.file {
+    visibility: hidden;
+    position: absolute;
+}
+
+.img-thumbnail{
+    width: 100px;
+    border-radius: 50%;
+}
+
+/*
+    CREATE SCIENCE CLUB 
+*/
+.create_sb_div{
+    width:80%;
+    margin-left:10%;
+}

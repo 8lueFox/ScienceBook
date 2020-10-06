@@ -4,64 +4,109 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
+<div class="cloud create_sb_div mt-5 shadow">
+    <h3>Utwórz profil swojego koła naukowego</h3>
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ScienceClub</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.CategoryOfScienceClubID, "CategoryOfScienceClubID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("CategoryOfScienceClubID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.CategoryOfScienceClubID, "", new { @class = "text-danger" })
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="form-group row">
+                @Html.LabelFor(m => m.Name, "Nazwa koła naukowego", htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                @Html.LabelFor(model => model.CategoryOfScienceClubID, "Kategoria koła naukowego", htmlAttributes: new { @class = "col-md-2 col-form-label" })
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="CategoryOfScienceClubID" name="CategoryOfScienceClubID" type="text" list="categories" />
+                    <datalist id="categories">
+                        @foreach (var item in ViewBag.CategoryOfScienceClubID)
+                        {
+                            <option value="@item.Name"></option>
+                        }
+                    </datalist>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="University">Uniwersytet</label>
+                <div class="col-md-10">
+                    <input class="form-control text-box single-line" id="University" name="University" type="text" list="universities" />
+                    <datalist id="universities">
+                        @foreach (var item in ViewBag.Universities)
+                        {
+                            <option value="@item.Name"></option>
+                        }
+                    </datalist>
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
+            <div id="target">
+                @{
+                    Html.RenderAction("UniversityAcademies", "Partials");
+                }
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Logo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Logo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })
+            <div class="form-group row">
+                <label class="col-md-2 col-form-label" for="CreationDate">Data utworzenia</label>
+                <div class="col-md-4">
+                    <input type="date" id="CreationDate" name="CreationDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                </div>
             </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group row">
+                <label class="col-md-2 mt-3 col-form-label" for="Logo">Logo</label>
+                <div class="col-md-4">
+                    <div id="msg"></div>
+                    <form method="post" id="image-form">
+                        <input type="file" name="Logo" class="file" style="display:none;" accept="image/*">
+                        <input type="hidden" id="LogoBase64" name="LogoBase64" value="dupa">
+                        <div class="input-group my-3">
+                            <div class="input-group-prepend">
+                                <button type="button" class="browse btn btn-warning">Przeglądaj...</button>
+                            </div>
+                            <input type="text" class="form-control " disabled placeholder="Zamieść obraz" id="file">
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <img id="preview" class="img-thumbnail" style="display: none;width: 200px; height:200px; border-radius: 50%;">
+                </div>
             </div>
+            <button type="submit" class="btn btn-outline-success">Utwórz koło naukowe</button>
         </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
+    }
 </div>
+<script>
+    var xmlHttp = new XMLHttpRequest();
+    var univInput = document.getElementById("University");
+    var target = document.getElementById("target");
+    univInput.addEventListener("blur", updateAcademies);
+
+    function updateAcademies() {
+        var value = univInput.value;
+        xmlHttp.open("GET", "/Partials/UniversityAcademies?name=" + value, false);
+        xmlHttp.send(null);
+        target.innerHTML = xmlHttp.responseText;
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", ".browse", function () {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+    });
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $("#file").val(fileName);
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("preview").src = e.target.result;
+            document.getElementById("LogoBase64").value = e.target.result;
+        };
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>

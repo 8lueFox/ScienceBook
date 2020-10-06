@@ -1,0 +1,19 @@
+﻿<div class="form-group row">
+    <label class="col-md-2 col-form-label" for="Academy">Wydział</label>
+    <div class="col-md-10">
+        @if (ViewBag.Name == null)
+        {
+            <input class="form-control text-box single-line" id="Academy" name="Academy" type="text" />
+        }
+        else
+        {
+            <input class="form-control text-box single-line" id="Academy" name="Academy" type="text" list="academies"/>
+            <datalist id="academies">
+                @foreach (var item in ViewBag.Academies)
+                {
+                    <option value="@item.Name"></option>
+                }
+            </datalist>
+        }
+    </div>
+</div>

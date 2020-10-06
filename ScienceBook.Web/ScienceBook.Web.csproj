@@ -284,6 +284,7 @@
     <Content Include="Views\ScienceClubs\Edit.cshtml" />
     <Content Include="Views\ScienceClubs\Index.cshtml" />
     <Content Include="Views\Partials\_ScienceClubMembers.cshtml" />
+    <Content Include="Views\Partials\UniversityAcademies.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

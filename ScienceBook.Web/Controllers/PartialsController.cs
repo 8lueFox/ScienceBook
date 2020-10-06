@@ -26,7 +26,10 @@ namespace ScienceBook.Web.Controllers
             var images = new List<string>();
             foreach (var item in scienceClubs)
             {
-                images.Add(Imager.ByteArrayToStringImage(item.Logo));
+                if (item.Logo != null)
+                    images.Add(Imager.ByteArrayToStringImage(item.Logo));
+                else
+                    images.Add(item.LogoS);
             }
             ViewBag.ScienceClubs = scienceClubs;
             ViewBag.Images = images;
@@ -47,6 +50,17 @@ namespace ScienceBook.Web.Controllers
             ViewBag.Members = members;
 
             return PartialView("_ScienceClubMembers");
+        }
+
+        public ActionResult UniversityAcademies(string name)
+        {
+            ViewBag.Name = name;
+            if(name != null)
+            {
+                var acaList = db.Departments.Where(a => a.University.Name.Equals(name)).ToList();
+                ViewBag.Academies = acaList;
+            }
+            return PartialView();
         }
     }
 }

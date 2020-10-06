@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using ScienceBook.Web.DAL;
@@ -41,7 +42,11 @@ namespace ScienceBook.Web.Controllers
             else
                 ViewBag.IsJoined = false;
 
-            ViewBag.Logo = Imager.ByteArrayToStringImage(scienceClub.Logo);
+            if (scienceClub.Logo != null)
+                ViewBag.Logo = Imager.ByteArrayToStringImage(scienceClub.Logo);
+            else
+                ViewBag.Logo = scienceClub.LogoS;
+
             ScienceClubViewModel view = new ScienceClubViewModel();
             view.ScienceClub = scienceClub;
             var tasks = db.Tasks.Where(t => t.ScienceClubID == scienceClub.ID).ToList();
@@ -72,20 +77,71 @@ namespace ScienceBook.Web.Controllers
             return RedirectToAction("Details", "ScienceClubs", new { id = id});
         }
 
+        [Authorize]
         // GET: ScienceClubs/Create
         public ActionResult Create()
         {
-            ViewBag.CategoryOfScienceClubID = new SelectList(db.CategoriesOfScienceClub, "ID", "Name");
+            ViewBag.CategoryOfScienceClubID = db.CategoriesOfScienceClub.ToList();
+            ViewBag.Universities = db.Universities.ToList();
             return View();
         }
 
         // POST: ScienceClubs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,CategoryOfScienceClubID,Name,Description,CreationDate,Logo")] ScienceClub scienceClub)
+        public ActionResult Create(string Name, string CategoryOfScienceClubID, string University, string Academy, DateTime CreationDate, string LogoBase64)
         {
+            var cat = db.CategoriesOfScienceClub.Where(c => c.Name.Equals(CategoryOfScienceClubID)).FirstOrDefault();
+            if (cat == null)
+            {
+                cat = new CategoryOfScienceClub { Name = CategoryOfScienceClubID };
+                db.CategoriesOfScienceClub.Add(cat);
+                db.SaveChanges();
+            }
+            cat = db.CategoriesOfScienceClub.Where(c => c.Name.Equals(CategoryOfScienceClubID)).FirstOrDefault();
+
+            var univ = db.Universities.Where(u => u.Name.Equals(University)).FirstOrDefault();
+            if(univ == null)
+            {
+                univ = new University { Name = University };
+                var dep = new Department { Name = Academy, University = univ };
+                db.Universities.Add(univ);
+                db.Departments.Add(dep);
+                db.SaveChanges();
+            }
+
+            var department = db.Departments.Where(d => d.Name.Equals(Academy)).FirstOrDefault();
+            if(department == null)
+            {
+                department = new Department { Name = Academy, University = db.Universities.Where(u => u.Name.Equals(University)).FirstOrDefault() };
+                db.Departments.Add(department);
+                db.SaveChanges();
+            }
+            department = db.Departments.Where(d => d.Name.Equals(Academy)).FirstOrDefault();
+
+            var mem = User.Identity.Name;
+            var member = db.Members.Where(m => m.Email.Equals(mem)).FirstOrDefault();
+
+            var scienceClub = new ScienceClub
+            {
+                Name = Name, 
+                CategoryOfScienceClub = cat,
+                CreationDate = CreationDate,
+                LogoS = LogoBase64, 
+                Department = department, 
+                CategoriesOfTasks = new List<CategoryOfTask>
+                {
+                    new CategoryOfTask{Name = "Pilne"},
+                    new CategoryOfTask{Name = "Na wczoraj"},
+                    new CategoryOfTask{Name = "W wolnej chwili"}
+                },
+                Members = new List<Member>()
+            };
+            scienceClub.Members.Add(db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault());
+             
             if (ModelState.IsValid)
             {
                 db.ScienceClubs.Add(scienceClub);
@@ -93,7 +149,8 @@ namespace ScienceBook.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.CategoryOfScienceClubID = new SelectList(db.CategoriesOfScienceClub, "ID", "Name", scienceClub.CategoryOfScienceClubID);
+            ViewBag.CategoryOfScienceClubID = db.CategoriesOfScienceClub.ToList();
+            ViewBag.Universities = db.Universities.ToList();
             return View(scienceClub);
         }
 
