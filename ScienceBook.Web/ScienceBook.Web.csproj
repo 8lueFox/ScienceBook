@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ElectionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -185,8 +186,10 @@
     <Compile Include="Models\DbModels\CategoryOfScienceClub.cs" />
     <Compile Include="Models\DbModels\CategoryOfTask.cs" />
     <Compile Include="Models\DbModels\Department.cs" />
+    <Compile Include="Models\DbModels\Election.cs" />
     <Compile Include="Models\DbModels\FieldOfStudy.cs" />
     <Compile Include="Models\DbModels\Member.cs" />
+    <Compile Include="Models\DbModels\OptionsInElection.cs" />
     <Compile Include="Models\DbModels\Role.cs" />
     <Compile Include="Models\DbModels\ScienceClub.cs" />
     <Compile Include="Models\DbModels\ScienceClub_Member_Role.cs" />
@@ -258,6 +261,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Views\Elections\" />
     <Folder Include="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>

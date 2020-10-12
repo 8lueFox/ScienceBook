@@ -26,6 +26,8 @@ namespace ScienceBook.Web.DAL
         public DbSet<TaskState> TaskStates { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<ScienceClub_Member_Role> ScienceClubs_Members_Roles { get; set; }
+        public DbSet<Election> Elections { get; set; }
+        public DbSet<OptionsInElection> OptionsInElections { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

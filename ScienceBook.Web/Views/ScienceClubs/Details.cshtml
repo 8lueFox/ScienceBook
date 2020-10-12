@@ -74,7 +74,7 @@
                 </div>
             </div>
 
-            <div class="cloud col-md-12">
+            <div class="cloud col-md-12 mb-2">
                 <h3 class="float-left">Zadania</h3>
                 <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addTask"></i></h5>
                 <div class="modal fade" id="addTask" tabindex="-1" role="grid" aria-labelledby="AddTaskLabel" aria-hidden="true">
@@ -208,7 +208,102 @@
 
                 </div>
             </div>
+            <div class="cloud col-md-12">
+                <h3 style="float:left">Wybory</h3>
+                <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addElection"></i></h5>
+                <div class="modal fade" id="addElection" tabindex="-1" role="grid" aria-labelledby="AddElectionLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="AddElectionLabel">Dodaj nowe wybory!</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body overflow-auto" style="height:500px;">
+                                @using (Html.BeginForm("Add", "Elections", FormMethod.Post, new { }))
+                                {
+                                    <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
+                                    <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
+                                    <div class="form-group row">
+                                        <label for="Name" class="col-sm-4 col-form-label">Nazwa wyborów</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" id="Name" name="Name" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="DayOfStart" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
+                                        <div class="col-sm-8">
+                                            <input type="datetime-local" id="DayOfStart" name="DayOfStart" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="DayOfEnd" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
+                                        <div class="col-sm-8">
+                                            <input type="datetime-local" id="DayOfEnd" name="DayOfEnd" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="CountOfChoices" class="col-sm-8 col-form-label">Maksymalna liczba oddanych głosów</label>
+                                        <div class="col-sm-4">
+                                            <input type="number" id="CountOfChoices" name="CountOfChoices" class="form-control" value="1" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="options" class="col-sm-4 col-form-label">Opcje głosowania</label>
+                                        <div class="col-sm-8">
+                                            <textarea id="options" name="options" cols="40" rows="5" class="p-1"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-sm btn-outline-dark">Podgląd</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-sm btn-warning float-right">Dodaj</button>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-2 shadow-sm">
+                    <div class="election-count float-right pr-2 pt-1">
+                        1 z 1
+                    </div>
+                    <div class="election-title pt-3 pl-2">
+                        Wybory na przewodniczącego koła naukowego
+                    </div>
+                    <div class="election-options">
+                        <input type="checkbox" name="electionOption" /> Kacper Jędrzejewski <br />
+                        <input type="checkbox" name="electionOption" /> Wioleta Cegiełka <br />
+                        <input type="checkbox" name="electionOption" /> Przemysław Bańkowski <br />
+                    </div>
+                    <button type="button" class="btn btn-sm btn-success">Zagłosuj</button>
+                </div>
+            </div>
         </div>
-        <div class="cloud col-md-7 mb-2"></div>
+        <div class="cloud col-md-7 mb-2">
+        </div>
     </div>
 </div>
+<script>
+    var placeholder = 'Każdą opcję wyboru oddzielaj enterem \nOznaczyć użytkownika w wyborach możesz za pomocą \u0040';
+    var ta = document.getElementById("options");
+
+    ta.value = placeholder;
+    ta.style.fontWeight = "300";
+
+    ta.addEventListener("focus", () => {;
+        if (ta.value === placeholder) {
+            ta.value = "";
+        }
+    });
+
+    ta.addEventListener("blur", () => {
+        if (ta.value == "") {
+            ta.value = placeholder;
+        }
+    });
+</script>
