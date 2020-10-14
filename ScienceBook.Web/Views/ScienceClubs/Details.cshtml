@@ -276,6 +276,7 @@
                             if (Model.Elections.Count > 1)
                             {
                                 <span>
+
                                     <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
                                     <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
                                     <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
@@ -288,7 +289,7 @@
 
                         }
                     </div>
-                    <div id="election">
+                    <div id="electionDiv">
                         @{
                             Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
                         }
@@ -320,53 +321,48 @@
         }
     });
 
-    @*var target = document.getElementById("election");
-    var target2 = document.getElementById("electionNumberSpan");
-
-    document.getElementById("arrowLeft").addEventListener("click", previousElection);
     document.getElementById("arrowRight").addEventListener("click", nextElection);
+    document.getElementById("arrowLeft").addEventListener("click", prevElection);
+    var scienceClubID = @Model.ScienceClub.ID;
+    var electionNr = @electionNumber;
+    var electionNrMax = @Model.Elections.Count;
 
-        function previousElection() {
-        var electionNumber = @electionNumber;
-        if (electionNumber > 1) {
-            xmlHttp = new XMLHttpRequest();
-            xmlHttp.open("GET", "/Partials/ScienceClubElection?scienceClubID=" + @Model.ScienceClub.ID + "&election=" + (--electionNumber), false);
-            xmlHttp.send(null);
-            target.innerHTML = xmlHttp.responseText;
-            target2.innerHTML = electionNumber;
-            @(electionNumber--)
+    async function nextElection() {
+        if (electionNr < electionNrMax) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${++electionNr}`, true)
+            xhr.send();
+            xhr.onload = function () {
+                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                fillElection(xhr.response);
+            };
+        }
+    }
+    async function prevElection() {
+        if (electionNr > 1) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${--electionNr}`, true)
+            xhr.send();
+            xhr.onload = function () {
+                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                fillElection(xhr.response);
+            };
         }
     }
 
+    //let xhr = new XMLHttpRequest();
+    //xhr.open("GET", "/Partials/ScienceClubElection?scienceClubID=1&election=2", true)
+    //xhr.send();
+    //xhr.onload = function () {
+    //    //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+    //    fillElection(xhr.response);
+    //};
 
-    function nextElection() {
-        var electionNumber = @electionNumber;
-        if (electionNumber < @Model.Elections.Count) {
-            var xmlHttp = new XMLHttpRequest();
-            xmlHttp.onreadystatechange = function () {
-                target.innerHTML = this.responseText;
-                target2.innerHTML = electionNumber;
-            };
-            xmlHttp.open("GET", "/Partials/ScienceClubElection?scienceClubID=" + @Model.ScienceClub.ID + "&election=" + @(++electionNumber), true);
-            xmlHttp.send();
+    async function fillElection(response) {
+        let target = document.getElementById("electionDiv");
+        let target2 = document.getElementById("electionNumberSpan");
 
-        }
-    }*@
-</script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-@*<script>
-        $('#arrowRight').click(function () {
-            $('#election').load('/Partials/ScienceClubElection?scienceClubID=" + @Model.ScienceClub.ID + "&election=" + @(++electionNumber)')
-        });
-    </script>*@
-<script type="text/javascript">
-    $.ajax({
-        url: "/Partials/ScienceClubElection?scienceClubID=1&election=2",
-        contentType: 'application/html; charset=utf-8',
-        type: 'GET',
-        dataType: 'html'
-    })
-        .success(function (result) {
-            $('#election').html(result);
-        })
+        target.innerHTML = response;
+        target2.innerHTML = electionNr;
+    }
 </script>
