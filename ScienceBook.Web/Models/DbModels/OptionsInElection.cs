@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ScienceBook.Web.Models.DbModels
 {
@@ -7,8 +8,14 @@ namespace ScienceBook.Web.Models.DbModels
     {
         public int ID { get; set; }
         public int ElectionID { get; set; }
-        public string value { get; set; }
+        public string Value { get; set; }
 
         public virtual Election Election { get; set; }
+        public virtual List<Vote> Votes { get; set; }
+
+        public OptionsInElection()
+        {
+            Votes = new List<Vote>();
+        }
     }
 }

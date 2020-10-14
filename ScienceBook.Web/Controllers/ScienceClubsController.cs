@@ -61,6 +61,10 @@ namespace ScienceBook.Web.Controllers
             tasks = temp;
             tasks = tasks.OrderBy(t => t.StartDay).ToList();
             view.Tasks = tasks;
+
+            var elections = db.Elections.Where(e => e.ScienceClubID == scienceClub.ID && e.DayOfEnd >= DateTime.Now).ToList();
+            view.Elections = elections;
+
             return View(view);
         }
 

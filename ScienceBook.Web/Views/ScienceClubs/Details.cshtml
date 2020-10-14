@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = Model.ScienceClub.Name + " - ScienceClub";
+    int electionNumber = 1;
 }
 
 <div class="clubProfile">
@@ -234,13 +235,13 @@
                                     <div class="form-group row">
                                         <label for="DayOfStart" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
                                         <div class="col-sm-8">
-                                            <input type="datetime-local" id="DayOfStart" name="DayOfStart" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <input type="datetime-local" id="DayOfStart" name="DayOfStart" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="DayOfEnd" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
                                         <div class="col-sm-8">
-                                            <input type="datetime-local" id="DayOfEnd" name="DayOfEnd" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                                            <input type="datetime-local" id="DayOfEnd" name="DayOfEnd" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -270,17 +271,29 @@
                 </div>
                 <div class="m-2 shadow-sm">
                     <div class="election-count float-right pr-2 pt-1">
-                        1 z 1
+                        @if (Model.Elections.Count != 0)
+                        {
+                            if (Model.Elections.Count > 1)
+                            {
+                                <span>
+
+                                    <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
+                                    <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
+                                    <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
+                                </span>
+                            }
+                            else
+                            {
+                                <span>1 z 1</span>
+                            }
+
+                        }
                     </div>
-                    <div class="election-title pt-3 pl-2">
-                        Wybory na przewodniczącego koła naukowego
+                    <div id="electionDiv">
+                        @{
+                            Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
+                        }
                     </div>
-                    <div class="election-options">
-                        <input type="checkbox" name="electionOption" /> Kacper Jędrzejewski <br />
-                        <input type="checkbox" name="electionOption" /> Wioleta Cegiełka <br />
-                        <input type="checkbox" name="electionOption" /> Przemysław Bańkowski <br />
-                    </div>
-                    <button type="button" class="btn btn-sm btn-success">Zagłosuj</button>
                 </div>
             </div>
         </div>
@@ -295,7 +308,8 @@
     ta.value = placeholder;
     ta.style.fontWeight = "300";
 
-    ta.addEventListener("focus", () => {;
+    ta.addEventListener("focus", () => {
+        ;
         if (ta.value === placeholder) {
             ta.value = "";
         }
@@ -306,4 +320,49 @@
             ta.value = placeholder;
         }
     });
+
+    document.getElementById("arrowRight").addEventListener("click", nextElection);
+    document.getElementById("arrowLeft").addEventListener("click", prevElection);
+    var scienceClubID = @Model.ScienceClub.ID;
+    var electionNr = @electionNumber;
+    var electionNrMax = @Model.Elections.Count;
+
+    async function nextElection() {
+        if (electionNr < electionNrMax) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${++electionNr}`, true)
+            xhr.send();
+            xhr.onload = function () {
+                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                fillElection(xhr.response);
+            };
+        }
+    }
+    async function prevElection() {
+        if (electionNr > 1) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${--electionNr}`, true)
+            xhr.send();
+            xhr.onload = function () {
+                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+                fillElection(xhr.response);
+            };
+        }
+    }
+
+    //let xhr = new XMLHttpRequest();
+    //xhr.open("GET", "/Partials/ScienceClubElection?scienceClubID=1&election=2", true)
+    //xhr.send();
+    //xhr.onload = function () {
+    //    //alert(`Loaded: ${xhr.status} ${xhr.response}`);
+    //    fillElection(xhr.response);
+    //};
+
+    async function fillElection(response) {
+        let target = document.getElementById("electionDiv");
+        let target2 = document.getElementById("electionNumberSpan");
+
+        target.innerHTML = response;
+        target2.innerHTML = electionNr;
+    }
 </script>

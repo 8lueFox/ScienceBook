@@ -196,6 +196,7 @@
     <Compile Include="Models\DbModels\Task.cs" />
     <Compile Include="Models\DbModels\TaskState.cs" />
     <Compile Include="Models\DbModels\University.cs" />
+    <Compile Include="Models\DbModels\Vote.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Statics\EmailSender.cs" />
@@ -227,6 +228,8 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="serviceworker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -291,6 +294,7 @@
     <Content Include="Views\ScienceClubs\Index.cshtml" />
     <Content Include="Views\Partials\_ScienceClubMembers.cshtml" />
     <Content Include="Views\Partials\UniversityAcademies.cshtml" />
+    <Content Include="Views\Partials\_ScienceClubElection.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
