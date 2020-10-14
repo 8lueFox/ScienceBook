@@ -196,6 +196,7 @@
     <Compile Include="Models\DbModels\Task.cs" />
     <Compile Include="Models\DbModels\TaskState.cs" />
     <Compile Include="Models\DbModels\University.cs" />
+    <Compile Include="Models\DbModels\Vote.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Statics\EmailSender.cs" />
@@ -291,6 +292,7 @@
     <Content Include="Views\ScienceClubs\Index.cshtml" />
     <Content Include="Views\Partials\_ScienceClubMembers.cshtml" />
     <Content Include="Views\Partials\UniversityAcademies.cshtml" />
+    <Content Include="Views\Partials\_ScienceClubElection.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

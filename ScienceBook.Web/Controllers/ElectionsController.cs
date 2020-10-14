@@ -28,15 +28,67 @@ namespace ScienceBook.Web.Controllers
 
             var opts = options.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None).ToList();
 
-            opts.ForEach(o => election.OptionsInElection.Add(new OptionsInElection
+            foreach (var item in opts)
             {
-                value = o
-            }));
+                if (item.Contains("@"))
+                {
+                    var tempItem = item.Replace('@', ' ');
+                    var stringsInOption = tempItem.Split(' ');
+                    var user = db.ScienceClubs.Where(sc => sc.ID == ScienceClubID)
+                                              .FirstOrDefault()
+                                              .Members.Where(m => m.FirstName.Equals(stringsInOption[1]) && m.LastName.Equals(stringsInOption[2]))
+                                              .FirstOrDefault();
+                    if(user == null)
+                    {
+                        election.OptionsInElection.Add(new OptionsInElection
+                        {
+                            Value = item.Remove(0, 1)
+                        });
+                    }
+                    else
+                    {
+                        election.OptionsInElection.Add(new OptionsInElection
+                        {
+                            Value = "<a href='/Members/Details/" + user.ID + "'>" + user.FirstName + " " + user.LastName + "</a>"
+                        });
+                    }
+                }
+                else
+                {
+                    election.OptionsInElection.Add(new OptionsInElection
+                    {
+                        Value = item
+                    });
+                }
+            }
 
             db.Elections.Add(election);
             db.SaveChanges();
 
             return Redirect(RedirectURL);
+        }
+
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult AddVote(int ElectionID, string[] electionOption)
+        {
+            db = new ScienceBookContext();
+            var election = db.Elections.Find(ElectionID);
+            foreach (var item in election.OptionsInElection)
+            {
+                foreach (var opt in electionOption)
+                {
+                    if (item.Value.Equals(opt))
+                    {
+                        item.Votes.Add(new Vote
+                        {
+                            Member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault()
+                        });
+                    }
+                }
+            }
+            db.SaveChanges();
+            return Redirect("/ScienceClubs/Details/" + election.ScienceClubID);
         }
     }
 }

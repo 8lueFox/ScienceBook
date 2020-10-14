@@ -1,0 +1,100 @@
+﻿@if (ViewBag.Election != null)
+{
+    <div class="election-title pt-3 pl-2">
+        @ViewBag.Election.Name
+    </div>
+    <div class="election-options pl-2">
+        @using (Html.BeginForm("AddVote", "Elections", FormMethod.Post, new { }))
+        {
+            int interator = 0;
+            <input type="hidden" id="ElectionID" name="ElectionID" value="@ViewBag.Election.ID">
+            foreach (var item in ViewBag.Election.OptionsInElection)
+            {
+                if (ViewBag.Election.CountOfChoices == 1)
+                {
+                    if (ViewBag.VotedList.Count != 0)
+                    {
+                        bool find = false;
+                        foreach (var votedItem in ViewBag.VotedList)
+                        {
+                            if (votedItem.OptionsInElection.Value.Equals(item.Value))
+                            {
+                                find = true;
+                                <input type="radio" name="electionOption" value="@item.Value" disabled checked />
+                            }
+                        }
+                        if (!find)
+                        {
+                            <input type="radio" name="electionOption" value="@item.Value" disabled />
+                        }
+                    }
+
+                    else
+                    {
+                        <input type="radio" name="electionOption" value="@item.Value" />
+                    }
+
+                }
+                else
+                {
+                    if (ViewBag.VotedList.Count != 0)
+                    {
+                        bool find = false;
+                        foreach (var votedItem in ViewBag.VotedList)
+                        {
+                            if (votedItem.OptionsInElection.Value.Equals(item.Value))
+                            {
+                                find = true;
+                                <input type="checkbox" name="electionOption" value="@item.Value" disabled checked />
+                            }
+                        }
+                        if (!find)
+                        {
+                            <input type="checkbox" name="electionOption" value="@item.Value" disabled />
+                        }
+                    }
+
+                    else
+                    {
+                        <input type="checkbox" name="electionOption" value="@item.Value" />
+                    }
+                }
+                if (item.Value.Contains("<a href"))
+                {
+                    @Html.Raw(item.Value)
+
+                    if (ViewBag.Percents[interator] != null)
+                    {
+                        <span>
+                            @ViewBag.Percents[interator++]%
+                        </span>
+                    }
+
+
+                }
+                else
+                {
+                    <span>
+                        @item.Value
+                        @if (ViewBag.Percents[interator] != null)
+                        {
+                            <span>
+                                @ViewBag.Percents[interator++]%
+                            </span>
+                        }
+                    </span>
+                }
+                <br />
+            }
+            if (ViewBag.VotedList.Count != 0)
+            {
+                <button type="submit" class="btn btn-sm btn-success mb-3 mt-2" disabled>Zagłosuj</button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-sm btn-success mb-3 mt-2">Zagłosuj</button>
+            }
+
+        }
+    </div>
+}
