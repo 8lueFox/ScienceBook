@@ -38,8 +38,8 @@
         <hr style="width:70%; margin-left:15%;" />
     </div>
     <div class="data row">
-        <div class="col-md-5 row mb-2">
-            <div class="cloud user_info col-md-12 mb-2">
+        <div class="col-md-4 offset-md-1">
+            <div class="cloud user_info mb-3">
                 <h3>Informacje ogólne</h3>
                 <div>
                     <i class="fas fa-university"></i>
@@ -73,9 +73,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="cloud col-md-12 mb-2">
+            </div>
+            <div class="cloud mb-3 ">
                 <h3 class="float-left">Zadania</h3>
                 <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addTask"></i></h5>
                 <div class="modal fade" id="addTask" tabindex="-1" role="grid" aria-labelledby="AddTaskLabel" aria-hidden="true">
@@ -209,7 +209,7 @@
 
                 </div>
             </div>
-            <div class="cloud col-md-12">
+            <div class="cloud mb-3">
                 <h3 style="float:left">Wybory</h3>
                 <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addElection"></i></h5>
                 <div class="modal fade" id="addElection" tabindex="-1" role="grid" aria-labelledby="AddElectionLabel" aria-hidden="true">
@@ -221,7 +221,7 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body overflow-auto" style="height:500px;">
+                            <div class="modal-body overflow-auto" style="height:460px;">
                                 @using (Html.BeginForm("Add", "Elections", FormMethod.Post, new { }))
                                 {
                                     <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
@@ -297,7 +297,52 @@
                 </div>
             </div>
         </div>
-        <div class="cloud col-md-7 mb-2">
+        <div class="col-md-6">
+            <div class="cloud mb-3">
+                <div class="postDiv">
+                    <img src="@ViewBag.Logo" class="logo-sm" />
+                    <p data-toggle="modal" data-target="#addPost"><i class="fas fa-seedling text-success"></i>Co w trawie piszczy? Utwórz post</p>
+                    <div class="modal fade" id="addPost" tabindex="-1" role="grid" aria-labelledby="AddPostLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="AddPostLabel">Utwórz post</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body overflow-auto" style="height:460px;">
+                                    @using (Html.BeginForm("Add", "Posts", FormMethod.Post, new { }))
+                                    {
+                                        <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
+                                        <div class="form-group row">
+                                            <label for="Title" class="col-sm-2 col-form-label">Tytuł</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" id="Title" name="Title" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-bottom: 0px;">
+                                            <div class="btn-group mr-2" role="group" aria-label="First group">
+                                                <button type="button" id="heading" class="btn btn-secondary"><i class="fas fa-heading"></i></button>
+                                                <button type="button" id="bold" class="btn btn-secondary"><i class="fas fa-bold"></i></button>
+                                                <button type="button" id="italic" class="btn btn-secondary"><i class="fas fa-italic"></i></button>
+                                                <button type="button" id="underDecoration" class="btn btn-secondary"><i class="fas fa-underline"></i></button>
+                                                <button type="button" id="prev" class="btn btn-secondary"><i class="far fa-eye"></i></button>
+                                            </div>
+                                        </div>
+                                        <textarea id="post-creator" class="col-md-12" rows="10"></textarea>
+                                        <textarea name="Text" id="Text" hidden></textarea>
+                                        <div id="prevDiv"></div>
+                                        <button type="submit" class="btn btn-outline-warning">Udostępnij</button>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cloud mb-3">r</div>
         </div>
     </div>
 </div>
@@ -321,8 +366,12 @@
         }
     });
 
-    document.getElementById("arrowRight").addEventListener("click", nextElection);
-    document.getElementById("arrowLeft").addEventListener("click", prevElection);
+
+    var arrowRight = document.getElementById("arrowRight");
+    if (typeof (arrowRight) != 'undefined' && arrowRight != null) {
+        document.getElementById("arrowRight").addEventListener("click", nextElection);
+        document.getElementById("arrowLeft").addEventListener("click", prevElection);
+    }
     var scienceClubID = @Model.ScienceClub.ID;
     var electionNr = @electionNumber;
     var electionNrMax = @Model.Elections.Count;
@@ -333,7 +382,6 @@
             xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${++electionNr}`, true)
             xhr.send();
             xhr.onload = function () {
-                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
                 fillElection(xhr.response);
             };
         }
@@ -344,19 +392,10 @@
             xhr.open("GET", `/Partials/ScienceClubElection?scienceClubID=${scienceClubID}&election=${--electionNr}`, true)
             xhr.send();
             xhr.onload = function () {
-                //alert(`Loaded: ${xhr.status} ${xhr.response}`);
                 fillElection(xhr.response);
             };
         }
     }
-
-    //let xhr = new XMLHttpRequest();
-    //xhr.open("GET", "/Partials/ScienceClubElection?scienceClubID=1&election=2", true)
-    //xhr.send();
-    //xhr.onload = function () {
-    //    //alert(`Loaded: ${xhr.status} ${xhr.response}`);
-    //    fillElection(xhr.response);
-    //};
 
     async function fillElection(response) {
         let target = document.getElementById("electionDiv");
@@ -365,4 +404,119 @@
         target.innerHTML = response;
         target2.innerHTML = electionNr;
     }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script>
+
+    $('#heading').click(function () {
+        var creator = $('#post-creator');
+        var cursorPointStart = creator.prop("selectionStart");
+        var cursorPointEnd = creator.prop("selectionEnd");
+        creator.val(
+            creator.val().substring(0, cursorPointStart)
+            + '^'
+            + creator.val().substring(cursorPointStart, cursorPointEnd)
+            + '^'
+            + creator.val().substring(cursorPointEnd));
+    });
+
+    $('#bold').click(function () {
+        var creator = $('#post-creator');
+        var cursorPointStart = creator.prop("selectionStart");
+        var cursorPointEnd = creator.prop("selectionEnd");
+        creator.val(
+            creator.val().substring(0, cursorPointStart)
+            + '>'
+            + creator.val().substring(cursorPointStart, cursorPointEnd)
+            + '>'
+            + creator.val().substring(cursorPointEnd));
+    });
+
+    $('#italic').click(function () {
+        var creator = $('#post-creator');
+        var cursorPointStart = creator.prop("selectionStart");
+        var cursorPointEnd = creator.prop("selectionEnd");
+        creator.val(
+            creator.val().substring(0, cursorPointStart)
+            + '/'
+            + creator.val().substring(cursorPointStart, cursorPointEnd)
+            + '/'
+            + creator.val().substring(cursorPointEnd - 1));
+    });
+
+    $('#underDecoration').click(function () {
+        var creator = $('#post-creator');
+        var cursorPointStart = creator.prop("selectionStart");
+        var cursorPointEnd = creator.prop("selectionEnd");
+        creator.val(
+            creator.val().substring(0, cursorPointStart)
+            + '_'
+            + creator.val().substring(cursorPointStart, cursorPointEnd)
+            + '_'
+            + creator.val().substring(cursorPointEnd));
+    });
+
+    $('#prev').click(function () {
+        var creatorText = $('#post-creator').val();
+        var prevText = '';
+        var bOpen = false;
+        var hOpen = false;
+        var iOpen = false;
+        var uOpen = false;
+
+        for (var i = 0; i < creatorText.length; i++) {
+            switch (creatorText[i]) {
+                case '>': //bold
+                    {
+                        if (!bOpen) {
+                            prevText += '<b>';
+                            bOpen = true;
+                        } else {
+                            prevText += '</b>';
+                            bOpen = false;
+                        }
+                        break;
+                    }
+                case '^': //heading
+                    {
+                        if (!hOpen) {
+                            prevText += '<h3>';
+                            hOpen = true;
+                        } else {
+                            prevText += '</h3>';
+                            hOpen = false;
+                        }
+                        break;
+                    }
+                case '/': //italic
+                    {
+                        if (!iOpen) {
+                            prevText += '<i>';
+                            iOpen = true;
+                        } else {
+                            prevText += '</i>';
+                            iOpen = false;
+                        }
+                        break;
+                    }
+                case '_': //underline
+                    {
+                        if (!uOpen) {
+                            prevText += '<u>';
+                            uOpen = true;
+                        } else {
+                            prevText += '</u>';
+                            uOpen = false;
+                        }
+                        break;
+                    }
+                default:
+                    prevText += creatorText[i];
+            }
+        }
+        $('#prevDiv').after(prevText);
+        $('#Text').val(prevText);
+    });
+
 </script>

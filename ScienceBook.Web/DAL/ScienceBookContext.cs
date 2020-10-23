@@ -29,6 +29,7 @@ namespace ScienceBook.Web.DAL
         public DbSet<Election> Elections { get; set; }
         public DbSet<OptionsInElection> OptionsInElections { get; set; }
         public DbSet<Vote> Votes { get; set; }
+        public DbSet<Post> Posts { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

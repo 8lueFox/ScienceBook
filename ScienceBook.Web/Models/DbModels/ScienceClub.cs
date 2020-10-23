@@ -26,5 +26,6 @@ namespace ScienceBook.Web.Models.DbModels
         public virtual List<Role> Roles { get; set; }
         public virtual List<ScienceClub_Member_Role> ScienceClub_Member_Roles { get; set; }
         public virtual List<Election> Elections { get; set; }
+        public virtual List<Post> Posts { get; set; }
     }
 }

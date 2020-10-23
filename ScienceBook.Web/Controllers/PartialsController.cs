@@ -73,33 +73,33 @@ namespace ScienceBook.Web.Controllers
         {
             var sc = db.ScienceClubs.Find(scienceClubID);
             var ele = db.Elections.Where(e => e.ScienceClubID == sc.ID && e.DayOfEnd >= DateTime.Now).ToList();
-            if(ele.Count != 0)
+            if (ele.Count != 0)
             {
                 ViewBag.Election = ele[election - 1];
-            }
 
-            var votedList = db.Votes.ToList();
-            votedList = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
-            votedList = votedList.Where(v => v.Member.Email.Equals(User.Identity.Name)).ToList();
-            ViewBag.VotedList = votedList;
+                var votedList = db.Votes.ToList();
+                votedList = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
+                votedList = votedList.Where(v => v.Member.Email.Equals(User.Identity.Name)).ToList();
+                ViewBag.VotedList = votedList;
 
-            var votes = db.Votes.ToList();
-            votes = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
-            double[] percents = new double[ele[election - 1].OptionsInElection.Count];
-            int interator = 0;
-            foreach (var item in ele[election -1].OptionsInElection)
-            {
-                double temp = votes.Where(v => v.OptionsInElectionID == item.ID).ToList().Count;
-                percents[interator++] = Math.Round((temp / votes.Count) * 100, 2);
-            }
-            for (int i = 0; i < percents.Length; i++)
-            {
-                if (double.IsNaN(percents[i]))
+                var votes = db.Votes.ToList();
+                votes = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
+                double[] percents = new double[ele[election - 1].OptionsInElection.Count];
+                int interator = 0;
+                foreach (var item in ele[election - 1].OptionsInElection)
                 {
-                    percents[i] = 0;
+                    double temp = votes.Where(v => v.OptionsInElectionID == item.ID).ToList().Count;
+                    percents[interator++] = Math.Round((temp / votes.Count) * 100, 2);
                 }
+                for (int i = 0; i < percents.Length; i++)
+                {
+                    if (double.IsNaN(percents[i]))
+                    {
+                        percents[i] = 0;
+                    }
+                }
+                ViewBag.Percents = percents;
             }
-            ViewBag.Percents = percents;
 
             return PartialView("_ScienceClubElection");
         }

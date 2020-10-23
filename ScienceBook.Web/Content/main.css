@@ -392,6 +392,7 @@
 }
 
     .cloud h5 i:hover {
+        cursor: pointer;
         animation-name: zakrecPlusem;
         animation-duration: 0.4s;
         animation-iteration-count: 1;
@@ -466,12 +467,16 @@
     border-radius: 50%;
 }
 
+.logo-sm{
+    border-radius: 50%;
+    width: 50px;
+}
 /*
     CREATE SCIENCE CLUB 
 */
-.create_sb_div{
-    width:80%;
-    margin-left:10%;
+.create_sb_div {
+    width: 80%;
+    margin-left: 10%;
 }
 
 /*
@@ -489,4 +494,32 @@
         .election-options a:hover {
             color: #f35b3f;
             text-decoration:none;
+        }
+
+/*
+    Adding post
+*/
+
+.postDiv{
+    width:100%;
+}
+
+.postDiv img{
+    float:left;
+}
+    .postDiv p {
+        line-height: 50px;
+        width: calc(100% - 70px);
+        margin-left: 60px;
+        margin-bottom: 0px;
+        background-color: #DBDBDB;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+        .postDiv p:hover {
+            background-color: #CCCCCC;
+            cursor: pointer;
         }

@@ -53,28 +53,28 @@
             </div>
             @if (Request.IsAuthenticated)
             {
-        <ul class="sidebar_menu">
-            <li class="dropdown-btn">
-                <a href="#">
-                    <div class="icon active">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <div class="title">Koła naukowe</div>
-                </a>
-            </li>
-            @if (Request.IsAuthenticated)
-            {
-                Html.RenderAction("GetUserScienceClubs", "Partials");
-            }
-            <li>
-                <a href="#">
-                    <div class="icon">
-                        <i class="fas fa-newspaper"></i>
-                    </div>
-                    <div class="title">Jobs</div>
-                </a>
-            </li>
-        </ul>
+                <ul class="sidebar_menu">
+                    <li class="dropdown-btn">
+                        <a href="#">
+                            <div class="icon active">
+                                <i class="fas fa-laptop"></i>
+                            </div>
+                            <div class="title">Koła naukowe</div>
+                        </a>
+                    </li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        Html.RenderAction("GetUserScienceClubs", "Partials");
+                    }
+                    <li>
+                        <a href="#">
+                            <div class="icon">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                            <div class="title">Jobs</div>
+                        </a>
+                    </li>
+                </ul>
             }
             @if (!Request.IsAuthenticated)
             {
