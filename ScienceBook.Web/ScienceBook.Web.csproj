@@ -175,6 +175,7 @@
     <Compile Include="Controllers\OfflineController.cs" />
     <Compile Include="Controllers\PartialsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
+    <Compile Include="Controllers\ScienceClubManagementController.cs" />
     <Compile Include="Controllers\ScienceClubsController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TasksController.cs" />
@@ -297,6 +298,9 @@
     <Content Include="Views\Partials\UniversityAcademies.cshtml" />
     <Content Include="Views\Partials\_ScienceClubElection.cshtml" />
     <Content Include="Views\Partials\_ScienceClubPosts.cshtml" />
+    <Content Include="Views\ScienceClubs\Management.cshtml" />
+    <Content Include="Views\ScienceClubManagement\_Members.cshtml" />
+    <Content Include="Views\ScienceClubManagement\_General.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -15,6 +15,7 @@ namespace ScienceBook.Web.Models.DbModels
         public int MemberID { get; set; }
         [Required]
         public int RoleID { get; set; }
+        public DateTime DayOfJoin { get; set; }
         public virtual Member Member { get; set; }
         public virtual Role Role { get; set; }
     }

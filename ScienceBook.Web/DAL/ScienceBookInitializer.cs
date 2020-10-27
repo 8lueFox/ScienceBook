@@ -231,21 +231,24 @@ namespace ScienceBook.Web.DAL
             sc1.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(4)
+                Role = context.Roles.Find(4),
+                DayOfJoin = DateTime.Now
             });
             var sc2 = context.ScienceClubs.Find(2);
             sc2.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
             sc2.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(9)
+                Role = context.Roles.Find(9),
+                DayOfJoin = DateTime.Now
             });
             var sc3 = context.ScienceClubs.Find(3);
             sc3.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
             sc3.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(14)
+                Role = context.Roles.Find(14),
+                DayOfJoin = DateTime.Now
             });
             context.SaveChanges();
         }

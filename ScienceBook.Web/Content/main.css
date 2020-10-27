@@ -529,3 +529,31 @@
     float:left;
     width:60px;
 }
+
+.menuSettings {
+    display: block;
+    margin-bottom: 16px;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+}
+
+    .menuSettings a {
+        position: relative;
+        display: block;
+        padding: 8px 16px;
+        color: #24292e;
+        border-bottom: 1px solid #eaecef;
+        text-decoration: none;
+    }
+
+.menuSettings .selected{
+    cursor: default;
+}
+
+.subhead-heading{
+    font-size: 24px;
+    font-weight: 400;
+    flex: 1 1 auto;
+}

@@ -1,0 +1,35 @@
+﻿@{
+    var id = 0;
+}
+
+<h2 class="subhead-heading">Członkowie</h2>
+
+@foreach (var item in ViewBag.Members)
+{
+    <div class="row">
+        <div class="memberInfo col-md-4">
+            @item.FirstName @item.LastName (@item.Username)
+        </div>
+        <div class="memberStat col-md-4">
+            <i class="fas fa-thumbs-up"></i> 0
+            <i class="fas fa-comments ml-3"></i> 0
+            <i class="fas fa-file-alt ml-3"></i> 0
+        </div>
+        <div class="memberSettings col-md-4">
+            <select name="Role" id="roleMember @item.ID" class="form-control" onchange="updateRole(@item.ID)">
+                @foreach (var item2 in ViewBag.Roles)
+                {
+                    if (ViewBag.MembersRole[id].Equals(item2.Name))
+                    {
+                        <option value="@item2.Name" selected="selected">@item2.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item2.Name">@item2.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+    id++;
+}
