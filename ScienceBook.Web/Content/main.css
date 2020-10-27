@@ -274,6 +274,7 @@
             border: 2px solid #27282A;
             border-radius: 50%;
             width: 150px;
+            background-color: #27282A;
         }
 
         .userProfile .info .profile_name .name {
@@ -392,6 +393,7 @@
 }
 
     .cloud h5 i:hover {
+        cursor: pointer;
         animation-name: zakrecPlusem;
         animation-duration: 0.4s;
         animation-iteration-count: 1;
@@ -466,12 +468,16 @@
     border-radius: 50%;
 }
 
+.logo-sm{
+    border-radius: 50%;
+    width: 50px;
+}
 /*
     CREATE SCIENCE CLUB 
 */
-.create_sb_div{
-    width:80%;
-    margin-left:10%;
+.create_sb_div {
+    width: 80%;
+    margin-left: 10%;
 }
 
 /*
@@ -490,3 +496,64 @@
             color: #f35b3f;
             text-decoration:none;
         }
+
+/*
+    Adding post
+*/
+
+.postDiv{
+    width:100%;
+}
+
+.postDiv img{
+    float:left;
+}
+    .postDiv p {
+        line-height: 50px;
+        width: calc(100% - 70px);
+        margin-left: 60px;
+        margin-bottom: 0px;
+        background-color: #DBDBDB;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700;
+        font-size: 16px;
+    }
+
+        .postDiv p:hover {
+            background-color: #CCCCCC;
+            cursor: pointer;
+        }
+
+.postLogo{
+    float:left;
+    width:60px;
+}
+
+.menuSettings {
+    display: block;
+    margin-bottom: 16px;
+    list-style: none;
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+}
+
+    .menuSettings a {
+        position: relative;
+        display: block;
+        padding: 8px 16px;
+        color: #24292e;
+        border-bottom: 1px solid #eaecef;
+        text-decoration: none;
+    }
+
+.menuSettings .selected{
+    cursor: default;
+}
+
+.subhead-heading{
+    font-size: 24px;
+    font-weight: 400;
+    flex: 1 1 auto;
+}

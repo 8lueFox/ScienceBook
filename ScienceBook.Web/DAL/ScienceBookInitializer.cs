@@ -88,7 +88,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 1,
                     Name = "KNS Genbit",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png")),
                     Tasks = new List<Task>()
                 },
                 new ScienceClub
@@ -97,7 +97,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 3,
                     Name = "Papugi",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg")),
                     Tasks = new List<Task>()
                 },
                 new ScienceClub
@@ -106,7 +106,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 4,
                     Name = "Łabędzie",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg")),
                     Tasks = new List<Task>()
                 },
             };
@@ -231,21 +231,24 @@ namespace ScienceBook.Web.DAL
             sc1.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(4)
+                Role = context.Roles.Find(4),
+                DayOfJoin = DateTime.Now
             });
             var sc2 = context.ScienceClubs.Find(2);
             sc2.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
             sc2.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(9)
+                Role = context.Roles.Find(9),
+                DayOfJoin = DateTime.Now
             });
             var sc3 = context.ScienceClubs.Find(3);
             sc3.ScienceClub_Member_Roles = new List<ScienceClub_Member_Role>();
             sc3.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
                 Member = context.Members.Find(1),
-                Role = context.Roles.Find(14)
+                Role = context.Roles.Find(14),
+                DayOfJoin = DateTime.Now
             });
             context.SaveChanges();
         }

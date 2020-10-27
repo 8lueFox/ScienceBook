@@ -116,6 +116,17 @@ namespace ScienceBook.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult ChangeRole(int memberID, int scienceClubID, string roleName)
+        {
+            var scienceClub = db.ScienceClubs.Find(scienceClubID);
+            var role = db.Roles.Where(r => r.Name.Equals(roleName) && r.ScienceClubID == scienceClubID).First();
+
+            scienceClub.ScienceClub_Member_Roles.Where(smr => smr.MemberID == memberID).First().Role = role;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

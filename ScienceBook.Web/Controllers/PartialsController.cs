@@ -1,4 +1,5 @@
 ﻿using ScienceBook.Web.DAL;
+using ScienceBook.Web.Models.DbModels;
 using ScienceBook.Web.Models.Statics;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,10 @@ namespace ScienceBook.Web.Controllers
             {
                 if (item.Logo != null)
                     images.Add(Imager.ByteArrayToStringImage(item.Logo));
-                else
+                else if (!item.LogoS.Equals(""))
                     images.Add(item.LogoS);
+                else
+                    images.Add($"https://avatars.dicebear.com/api/jdenticon/{item.Name}.svg");
             }
             ViewBag.ScienceClubs = scienceClubs;
             ViewBag.Images = images;
@@ -73,35 +76,62 @@ namespace ScienceBook.Web.Controllers
         {
             var sc = db.ScienceClubs.Find(scienceClubID);
             var ele = db.Elections.Where(e => e.ScienceClubID == sc.ID && e.DayOfEnd >= DateTime.Now).ToList();
-            if(ele.Count != 0)
+            if (ele.Count != 0)
             {
                 ViewBag.Election = ele[election - 1];
-            }
 
-            var votedList = db.Votes.ToList();
-            votedList = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
-            votedList = votedList.Where(v => v.Member.Email.Equals(User.Identity.Name)).ToList();
-            ViewBag.VotedList = votedList;
+                var votedList = db.Votes.ToList();
+                votedList = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
+                votedList = votedList.Where(v => v.Member.Email.Equals(User.Identity.Name)).ToList();
+                ViewBag.VotedList = votedList;
 
-            var votes = db.Votes.ToList();
-            votes = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
-            double[] percents = new double[ele[election - 1].OptionsInElection.Count];
-            int interator = 0;
-            foreach (var item in ele[election -1].OptionsInElection)
-            {
-                double temp = votes.Where(v => v.OptionsInElectionID == item.ID).ToList().Count;
-                percents[interator++] = Math.Round((temp / votes.Count) * 100, 2);
-            }
-            for (int i = 0; i < percents.Length; i++)
-            {
-                if (double.IsNaN(percents[i]))
+                var votes = db.Votes.ToList();
+                votes = votedList.Where(v => v.OptionsInElection.ElectionID == ele[election - 1].ID).ToList();
+                double[] percents = new double[ele[election - 1].OptionsInElection.Count];
+                int interator = 0;
+                foreach (var item in ele[election - 1].OptionsInElection)
                 {
-                    percents[i] = 0;
+                    double temp = votes.Where(v => v.OptionsInElectionID == item.ID).ToList().Count;
+                    percents[interator++] = Math.Round((temp / votes.Count) * 100, 2);
                 }
+                for (int i = 0; i < percents.Length; i++)
+                {
+                    if (double.IsNaN(percents[i]))
+                    {
+                        percents[i] = 0;
+                    }
+                }
+                ViewBag.Percents = percents;
             }
-            ViewBag.Percents = percents;
 
             return PartialView("_ScienceClubElection");
+        }
+
+        public ActionResult ScienceClubPosts (int scienceClubID)
+        {
+            var sc = db.ScienceClubs.Find(scienceClubID);
+            var posts = sc.Posts.OrderBy(p => p.PublicationDay).ToList();
+
+            if (sc.Logo != null)
+                ViewBag.Logo = Imager.ByteArrayToStringImage(sc.Logo);
+            else if (!sc.LogoS.Equals(""))
+                ViewBag.Logo = sc.LogoS;
+            else
+                ViewBag.Logo = $"https://avatars.dicebear.com/api/jdenticon/{sc.Name}.svg";
+
+            if (posts.Count <= 5)
+            {
+                ViewBag.Posts = posts;
+            }
+            else
+            {
+                ViewBag.Posts = new List<Post>();
+                for (int i = 0; i < 5; i++)
+                {
+                    ViewBag.Posts.Add(posts[i]);
+                }
+            }
+            return PartialView("_ScienceClubPosts");
         }
     }
 }

@@ -44,8 +44,10 @@ namespace ScienceBook.Web.Controllers
 
             if (scienceClub.Logo != null)
                 ViewBag.Logo = Imager.ByteArrayToStringImage(scienceClub.Logo);
-            else
+            else if (!scienceClub.LogoS.Equals(""))
                 ViewBag.Logo = scienceClub.LogoS;
+            else
+                ViewBag.Logo = $"https://avatars.dicebear.com/api/jdenticon/{scienceClub.Name}.svg";
 
             ScienceClubViewModel view = new ScienceClubViewModel();
             view.ScienceClub = scienceClub;
@@ -68,6 +70,25 @@ namespace ScienceBook.Web.Controllers
             return View(view);
         }
 
+        public ActionResult Management(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var sc = db.ScienceClubs.Find(id);
+
+            if (sc.Logo != null)
+                ViewBag.Logo = Imager.ByteArrayToStringImage(sc.Logo);
+            else if (!sc.LogoS.Equals(""))
+                ViewBag.Logo = sc.LogoS;
+            else
+                ViewBag.Logo = $"https://avatars.dicebear.com/api/jdenticon/{sc.Name}.svg";
+
+            return View(sc);
+        }
+
         // GET: ScienceClubs/Join/5
         public ActionResult Join(int? id)
         {
@@ -75,13 +96,16 @@ namespace ScienceBook.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            db.ScienceClubs.Find(id).Members.Add(db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault());
+            var member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault();
+            db.ScienceClubs.Find(id).Members.Add(member);
 
             var scienceClub = db.ScienceClubs.Find(id);
-            db.ScienceClubs_Members_Roles.Add(new ScienceClub_Member_Role
+            var role = db.Roles.Where(r => r.Name.Equals("Członek") && r.ScienceClubID == scienceClub.ID).First();
+            scienceClub.ScienceClub_Member_Roles.Add(new ScienceClub_Member_Role
             {
-                Member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault(),
-                Role = scienceClub.Roles.Where(r => r.Name.Equals("Członek")).FirstOrDefault()
+                Member = member,
+                Role = role, 
+                DayOfJoin = DateTime.Now
             });
             db.SaveChanges();
 
@@ -171,7 +195,8 @@ namespace ScienceBook.Web.Controllers
                 db.ScienceClubs_Members_Roles.Add(new ScienceClub_Member_Role
                 {
                     Member = db.Members.Where(m => m.Email.Equals(User.Identity.Name)).FirstOrDefault(),
-                    Role = scienceClub.Roles.Where(r => r.Name.Equals("Przewodniczący")).FirstOrDefault()
+                    Role = scienceClub.Roles.Where(r => r.Name.Equals("Przewodniczący")).FirstOrDefault(),
+                    DayOfJoin = DateTime.Now
                 });
                 db.SaveChanges();
 

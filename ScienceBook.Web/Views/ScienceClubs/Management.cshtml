@@ -1,0 +1,58 @@
+﻿@model ScienceBook.Web.Models.DbModels.ScienceClub
+
+@{
+    ViewBag.Title = Model.Name + " - Management";
+}
+<div class="clubProfile">
+    <div class="info row">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            <div class="clubLogo">
+                <img src="@ViewBag.Logo" />
+            </div>
+            <div class="clubName">
+                <div class="name">
+                    @Model.Name
+                </div>
+                <div class="category">
+                    @Model.CategoryOfScienceClub.Name
+                </div>
+            </div>
+        </div>
+        <hr style="width:70%; margin-left:15%;" />
+    </div>
+
+    <div class="data row">
+        <div class="col-md-3">
+            <div class=" menuSettings ml-5 mt-4">
+                <a href="#" class="selected">Options</a>
+                <a href="#">Manage access</a>
+                <a href="#" id="members">Członkowie</a>
+            </div>
+        </div>
+        <div class="col-md-9 mt-4" id="updateSection">
+            @{
+                Html.RenderAction("General", "ScienceClubManagement", new { id = Model.ID });
+            }
+        </div>
+    </div>
+</div>
+<script>
+    var xmlHttp = new XMLHttpRequest();
+    var target = document.getElementById("updateSection");
+    var membersA = document.getElementById("members");
+    membersA.addEventListener("click", updateSectionMembers);
+
+    function updateSectionMembers() {
+        xmlHttp.open("GET", "/ScienceClubManagement/Members?id=" + @Model.ID, false);
+        xmlHttp.send(null);
+        target.innerHTML = xmlHttp.responseText;
+    }
+
+    function updateRole(id) {
+        var xmlHttp = new XMLHttpRequest();
+        var select = document.getElementById("roleMember " + id);
+        xmlHttp.open("GET", "/Members/ChangeRole?memberID=" + id + "&scienceClubID=" + @Model.ID + "&roleName=" + select.value, false);
+        xmlHttp.send(null);
+    }
+</script>
