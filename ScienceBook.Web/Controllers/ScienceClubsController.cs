@@ -44,8 +44,10 @@ namespace ScienceBook.Web.Controllers
 
             if (scienceClub.Logo != null)
                 ViewBag.Logo = Imager.ByteArrayToStringImage(scienceClub.Logo);
-            else
+            else if (!scienceClub.LogoS.Equals(""))
                 ViewBag.Logo = scienceClub.LogoS;
+            else
+                ViewBag.Logo = $"https://avatars.dicebear.com/api/jdenticon/{scienceClub.Name}.svg";
 
             ScienceClubViewModel view = new ScienceClubViewModel();
             view.ScienceClub = scienceClub;

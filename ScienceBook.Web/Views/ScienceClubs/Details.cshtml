@@ -333,6 +333,25 @@
                                         <textarea id="post-creator" class="col-md-12" rows="10"></textarea>
                                         <textarea name="Text" id="Text" hidden></textarea>
                                         <div id="prevDiv"></div>
+                                        <div class="form-group row">
+                                            <label class="col-md-2 mt-3 col-form-label" for="Img">Obraz</label>
+                                            <div class="col-md-10">
+                                                <div id="msg"></div>
+                                                <form method="post" id="image-form">
+                                                    <input type="file" name="Img" class="file" style="display:none;" accept="image/*">
+                                                    <input type="hidden" id="LogoBase64" name="LogoBase64">
+                                                    <div class="input-group my-3">
+                                                        <div class="input-group-prepend">
+                                                            <button type="button" class="browse btn btn-warning">Przeglądaj...</button>
+                                                        </div>
+                                                        <input type="text" class="form-control " disabled placeholder="Zamieść obraz" id="file">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <img id="preview" style="display: none; width: 400px;">
+                                            </div>
+                                        </div>
                                         <button type="submit" class="btn btn-outline-warning">Udostępnij</button>
 
                                     }
@@ -519,4 +538,22 @@
         $('#Text').val(prevText);
     });
 
+    $(document).on("click", ".browse", function () {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+    });
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $("#file").val(fileName);
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("preview").src = e.target.result;
+            document.getElementById("LogoBase64").value = e.target.result;
+        };
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    });
 </script>

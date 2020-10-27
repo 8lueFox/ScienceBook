@@ -28,8 +28,10 @@ namespace ScienceBook.Web.Controllers
             {
                 if (item.Logo != null)
                     images.Add(Imager.ByteArrayToStringImage(item.Logo));
-                else
+                else if (!item.LogoS.Equals(""))
                     images.Add(item.LogoS);
+                else
+                    images.Add($"https://avatars.dicebear.com/api/jdenticon/{item.Name}.svg");
             }
             ViewBag.ScienceClubs = scienceClubs;
             ViewBag.Images = images;

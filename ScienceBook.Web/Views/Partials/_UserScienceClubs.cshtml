@@ -2,7 +2,7 @@
     @for (int i = 0; i < ViewBag.ScienceClubs.Count; i++)
     {
         <a href="/ScienceClubs/Details/@(ViewBag.ScienceClubs[i].ID)">
-            <img src="@ViewBag.Images[i]" width="30" style="border-radius:50%"/>
+            <img src="@ViewBag.Images[i]" width="30" style="border-radius:50%; background-color:#fff;"/>
             @ViewBag.ScienceClubs[i].Name
         </a>
     }

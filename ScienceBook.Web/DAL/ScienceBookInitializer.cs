@@ -88,7 +88,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 1,
                     Name = "KNS Genbit",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\genbit.png")),
                     Tasks = new List<Task>()
                 },
                 new ScienceClub
@@ -97,7 +97,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 3,
                     Name = "Papugi",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\papugi.jpg")),
                     Tasks = new List<Task>()
                 },
                 new ScienceClub
@@ -106,7 +106,7 @@ namespace ScienceBook.Web.DAL
                     CreationDate = DateTime.Now,
                     DepartmentID = 4,
                     Name = "Łabędzie",
-                    Logo = Imager.ImageToByteArray(Image.FromFile(@"F:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg")),
+                    Logo = Imager.ImageToByteArray(Image.FromFile(@"E:\!!! INZYNIERKA !!!\ScienceBook Seriously Last Version XD\ScienceBook\ScienceBook.Web\App_Data\images\labedzie.jpg")),
                     Tasks = new List<Task>()
                 },
             };
