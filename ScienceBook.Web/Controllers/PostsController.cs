@@ -13,7 +13,7 @@ namespace ScienceBook.Web.Controllers
         ScienceBookContext db;
 
         [HttpPost, ValidateInput(false)]
-        public ActionResult Add(int ScienceClubID, string Title, string Text)
+        public ActionResult Add(int ScienceClubID, string Title, string Text, string LogoBase64)
         {
             db = new ScienceBookContext();
 
@@ -23,7 +23,8 @@ namespace ScienceBook.Web.Controllers
                 ScienceClub = db.ScienceClubs.Find(ScienceClubID),
                 PublicationDay = DateTime.Now,
                 Title = Title,
-                Text = Text
+                Text = Text,
+                Img = LogoBase64
             };
 
             db.Posts.Add(post);

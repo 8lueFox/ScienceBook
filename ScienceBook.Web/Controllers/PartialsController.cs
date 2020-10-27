@@ -1,4 +1,5 @@
 ﻿using ScienceBook.Web.DAL;
+using ScienceBook.Web.Models.DbModels;
 using ScienceBook.Web.Models.Statics;
 using System;
 using System.Collections.Generic;
@@ -104,6 +105,33 @@ namespace ScienceBook.Web.Controllers
             }
 
             return PartialView("_ScienceClubElection");
+        }
+
+        public ActionResult ScienceClubPosts (int scienceClubID)
+        {
+            var sc = db.ScienceClubs.Find(scienceClubID);
+            var posts = sc.Posts.OrderBy(p => p.PublicationDay).ToList();
+
+            if (sc.Logo != null)
+                ViewBag.Logo = Imager.ByteArrayToStringImage(sc.Logo);
+            else if (!sc.LogoS.Equals(""))
+                ViewBag.Logo = sc.LogoS;
+            else
+                ViewBag.Logo = $"https://avatars.dicebear.com/api/jdenticon/{sc.Name}.svg";
+
+            if (posts.Count <= 5)
+            {
+                ViewBag.Posts = posts;
+            }
+            else
+            {
+                ViewBag.Posts = new List<Post>();
+                for (int i = 0; i < 5; i++)
+                {
+                    ViewBag.Posts.Add(posts[i]);
+                }
+            }
+            return PartialView("_ScienceClubPosts");
         }
     }
 }

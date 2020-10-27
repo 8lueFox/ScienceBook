@@ -1,0 +1,20 @@
+﻿@foreach (var item in ViewBag.Posts)
+{
+    <div class="cloud mb-3">
+        <div class="postLogo">
+            <a href="/ScienceClubs/Details/@item.ScienceClubID">
+                <img src="@ViewBag.Logo" class="logo-sm" />
+            </a>
+        </div>
+        <div class="postInfo">
+            <span class="font-weight-bold">@item.Title</span><br />
+            <span>@item.PublicationDay.ToString("dddd, dd MMMM yyyy HH:mm")</span>
+        </div>
+        <div class="postText mt-4">
+            @Html.Raw(item.Text)
+        </div>
+        <div class="postImg">
+            <img src="@item.Img" />
+        </div>
+    </div>
+}

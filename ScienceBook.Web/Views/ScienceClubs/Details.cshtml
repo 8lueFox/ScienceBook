@@ -314,6 +314,7 @@
                                 <div class="modal-body overflow-auto" style="height:460px;">
                                     @using (Html.BeginForm("Add", "Posts", FormMethod.Post, new { }))
                                     {
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                         <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
                                         <div class="form-group row">
                                             <label for="Title" class="col-sm-2 col-form-label">Tytuł</label>
@@ -351,9 +352,8 @@
                                             <div class="col-md-12">
                                                 <img id="preview" style="display: none; width: 400px;">
                                             </div>
+                                            <button class="btn btn-outline-warning">Udostępnij</button>
                                         </div>
-                                        <button type="submit" class="btn btn-outline-warning">Udostępnij</button>
-
                                     }
                                 </div>
                             </div>
@@ -361,7 +361,9 @@
                     </div>
                 </div>
             </div>
-            <div class="cloud mb-3">r</div>
+            @{ 
+                Html.RenderAction("ScienceClubPosts", "Partials", new { scienceClubID = Model.ScienceClub.ID});
+            }
         </div>
     </div>
 </div>

@@ -17,7 +17,7 @@ namespace ScienceBook.Web.Models.DbModels
         [AllowHtml]
         public string Text { get; set; }
         public DateTime PublicationDay { get; set; }
-        public byte[] Img { get; set; }
+        public string Img { get; set; }
 
         public virtual ScienceClub ScienceClub { get; set; }
         public virtual Member Member { get; set; }
