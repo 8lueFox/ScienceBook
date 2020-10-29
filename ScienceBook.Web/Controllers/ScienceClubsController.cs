@@ -67,6 +67,8 @@ namespace ScienceBook.Web.Controllers
             var elections = db.Elections.Where(e => e.ScienceClubID == scienceClub.ID && e.DayOfEnd >= DateTime.Now).ToList();
             view.Elections = elections;
 
+            ViewBag.IsScienceClubAdmin = scienceClub.ScienceClub_Member_Roles.Any(smr => smr.Member.Email.Equals(User.Identity.Name) && !smr.Role.Name.Equals("Członek"));
+
             return View(view);
         }
 

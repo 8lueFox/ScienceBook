@@ -301,6 +301,7 @@
     <Content Include="Views\ScienceClubs\Management.cshtml" />
     <Content Include="Views\ScienceClubManagement\_Members.cshtml" />
     <Content Include="Views\ScienceClubManagement\_General.cshtml" />
+    <Content Include="Views\ScienceClubs\MembershipDeclaration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

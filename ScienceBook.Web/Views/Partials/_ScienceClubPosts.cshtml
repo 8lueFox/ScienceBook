@@ -1,6 +1,6 @@
 ﻿@foreach (var item in ViewBag.Posts)
 {
-    <div class="cloud mb-3">
+    <div class="cloud">
         <div class="postLogo">
             <a href="/ScienceClubs/Details/@item.ScienceClubID">
                 <img src="@ViewBag.Logo" class="logo-sm" />
@@ -14,7 +14,7 @@
             @Html.Raw(item.Text)
         </div>
         <div class="postImg">
-            <img src="@item.Img" />
+            <img src="@item.Img" style="width:100%;"/>
         </div>
     </div>
 }

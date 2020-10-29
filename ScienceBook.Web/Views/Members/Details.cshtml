@@ -3,9 +3,10 @@
 @{
     ViewBag.Title = Model.FirstName + " " + Model.LastName + " - ScienceBook";
 }
-<div class="userProfile">
-    <div class="info">
-        <div class="profile_logo">
+
+<div class="profileInfo">
+    <div class="profileLogo">
+        <span style="float:left;">
             @if (Model.Logo != null)
             {
                 <img src="@Model.Logo" />
@@ -14,46 +15,46 @@
             {
                 <img src="https://avatars.dicebear.com/api/avataaars/@( Model.FirstName + Model.LastName ).svg" />
             }
-        </div>
-        <div class="profile_name">
-            <div class="profile_name">
-                <div class="name">
-                    @Model.FirstName @Model.LastName
-                </div>
-                <div class="username">
-                    @Model.Username
-                </div>
-            </div>
-        </div>
-        <hr style="width:70%; margin-left:15%;" />
+            </span>
+        <span class="profileName mt-6 ml-2">
+            <span class="font-weight-bold h4">@Model.FirstName @Model.LastName</span>
+            <span class="font-italic">@Model.Username</span>
+        </span>
     </div>
-    <div class="data row">
-        <div class="col-md-5 row mb-2">
-            <div class="cloud user_info col-md-12">
-                <h3>Informacje ogólne</h3>
-                <div>
-                    <i class="fas fa-graduation-cap"></i>
-                    Studiuje kierunek o profilu:
-                    <span class="respect">@Model.FieldOfStudy.Name</span>
-                </div>
-                <div>
-                    <i class="fas fa-briefcase"></i>
-                    Przewodniczący w:
-                    <span class="respect">KNSI Genbit</span>
-                </div>
-                <div>
-                    <i class="fas fa-atom"></i>
-                    @if (Model.ScienceClubs.Count == 1)
-                    {
-                        <span>Należy do 1 koła naukowego</span>
-                    }
-                    else
-                    {
-                        <span>Należy do @Model.ScienceClubs.Count kół naukowych</span>
-                    }
-                </div>
+    <div class="profileButtons mt-7">
+
+    </div>
+</div>
+<div class="profileContainer">
+    <div class="profileSidebar">
+        <div class="cloud">
+            <h3>Informacje ogólne</h3>
+            <div>
+                <i class="fas fa-graduation-cap"></i>
+                Studiuje kierunek o profilu:
+                <span class="respect">@Model.FieldOfStudy.Name</span>
+            </div>
+            <div>
+                <i class="fas fa-briefcase"></i>
+                Przewodniczący w:
+                <span class="respect">KNSI Genbit</span>
+            </div>
+            <div>
+                <i class="fas fa-atom"></i>
+                @if (Model.ScienceClubs.Count == 1)
+                {
+                    <span>Należy do 1 koła naukowego</span>
+                }
+                else
+                {
+                    <span>Należy do @Model.ScienceClubs.Count kół naukowych</span>
+                }
             </div>
         </div>
-        <div class="cloud col-md-7 mb-2"></div>
+    </div>
+    <div class="profileMain">
+        <div class="cloud">
+           
+        </div>
     </div>
 </div>

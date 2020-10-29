@@ -7,17 +7,19 @@
     <div class="info row">
         <div class="col-md-2"></div>
         <div class="col-md-4">
-            <div class="clubLogo">
-                <img src="@ViewBag.Logo" />
-            </div>
-            <div class="clubName">
-                <div class="name">
-                    @Model.Name
+            <a href="/ScienceClubs/Details/@Model.ID" style="text-decoration: none; color: #212529">
+                <div class="clubLogo">
+                    <img src="@ViewBag.Logo" />
                 </div>
-                <div class="category">
-                    @Model.CategoryOfScienceClub.Name
+                <div class="clubName">
+                    <div class="name">
+                        @Model.Name
+                    </div>
+                    <div class="category">
+                        @Model.CategoryOfScienceClub.Name
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
         <hr style="width:70%; margin-left:15%;" />
     </div>

@@ -5,368 +5,374 @@
     int electionNumber = 1;
 }
 
-<div class="clubProfile">
-    <div class="info row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <div class="clubLogo">
-                <img src="@ViewBag.Logo" />
-            </div>
-            <div class="clubName">
-                <div class="name">
-                    @Model.ScienceClub.Name
-                </div>
-                <div class="category">
-                    @Model.ScienceClub.CategoryOfScienceClub.Name
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 clubButtons">
-            @if (!ViewBag.IsJoined && Request.IsAuthenticated)
-            {
-                <a href="/ScienceClubs/Join/@Model.ScienceClub.ID" class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
-            }
-            else if (!ViewBag.IsJoined)
-            {
-                <a href='/Account/Login?returnUrl=/ScienceClubs/Details/@Model.ScienceClub.ID' class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
-            }
-            @if (Request.IsAuthenticated)
-            {
-                <a href="#" class="btn btn-light btn-outline-dark"><i class="far fa-envelope" style="margin-right:5px;"></i>Wyślij wiadomość</a>
-            }
-        </div>
-        <hr style="width:70%; margin-left:15%;" />
+<div class="profileInfo">
+    <div class="profileLogo">
+        <span style="float:left;"><img src="@ViewBag.Logo" /></span>
+        <span class="profileName mt-6 ml-2">
+            <span class="font-weight-bold h4">@Model.ScienceClub.Name</span>
+            <span class="font-italic">@Model.ScienceClub.CategoryOfScienceClub.Name</span>
+        </span>
     </div>
-    <div class="data row">
-        <div class="col-md-4 offset-md-1">
-            <div class="cloud user_info mb-3">
-                <h3>Informacje ogólne</h3>
-                <div>
-                    <i class="fas fa-university"></i>
-                    Uniwersytet:
-                    <span class="respect">@Model.ScienceClub.Department.University.Name</span>
-                </div>
-                <div>
-                    <i class="fas fa-school"></i>
-                    Wydział:
-                    <span class="respect">@Model.ScienceClub.Department.Name</span>
-                </div>
-                <div data-toggle="modal" data-target="#membersList">
-                    <i class="fas fa-users" id="icon"></i>
-                    Liczba członków:
-                    <span class="respect">@Model.ScienceClub.Members.Count</span>
-                </div>
-                <div class="modal fade" id="membersList" tabindex="-1" role="grid" aria-labelledby="membersListLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="membersListLabel">Lista członków koła naukowego <span class="text_orange">@Model.ScienceClub.Name</span></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body overflow-auto" style="height:300px;">
-                                @{
-                                    Html.RenderAction("GetScienceClubMembers", "Partials");
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="profileButtons mt-7">
+        @if (!ViewBag.IsJoined && Request.IsAuthenticated)
+        {
+            <a href="/ScienceClubs/Join/@Model.ScienceClub.ID" class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
+        }
+        else if (!ViewBag.IsJoined)
+        {
+            <a href='/Account/Login?returnUrl=/ScienceClubs/Details/@Model.ScienceClub.ID' class="btn btn-outline-warning"><i class="far fa-thumbs-up" style="margin-right:5px;"></i>Dołącz do koła</a>
+        }
+        @if (Request.IsAuthenticated)
+        {
+            <a href="#" class="btn btn-light btn-outline-dark"><i class="far fa-envelope" style="margin-right:5px;"></i>Wyślij wiadomość</a>
+        }
 
+        @if (ViewBag.IsScienceClubAdmin)
+        {
+            <a href='/ScienceClubs/Management?id=@Model.ScienceClub.ID' class="btn btn-dark"><i class="fas fa-cog"></i></a>
+        }
+    </div>
+</div>
+<div class="profileContainer">
+    <div class="profileSidebar">
+        <div class="cloud">
+            <h3>Informacje ogólne</h3>
+            <div>
+                <i class="fas fa-university"></i>
+                Uniwersytet:
+                <span class="respect">@Model.ScienceClub.Department.University.Name</span>
             </div>
-            <div class="cloud mb-3 ">
-                <h3 class="float-left">Zadania</h3>
-                <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addTask"></i></h5>
-                <div class="modal fade" id="addTask" tabindex="-1" role="grid" aria-labelledby="AddTaskLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="AddTaskLabel">Dodaj nowe zadanie!</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body overflow-auto" style="height:500px;">
-                                @using (Html.BeginForm("Add", "Tasks", FormMethod.Post, new { }))
+            <div>
+                <i class="fas fa-school"></i>
+                Wydział:
+                <span class="respect">@Model.ScienceClub.Department.Name</span>
+            </div>
+            <div data-toggle="modal" data-target="#membersList">
+                <i class="fas fa-users" id="icon"></i>
+                Liczba członków:
+                <span class="respect">@Model.ScienceClub.Members.Count</span>
+            </div>
+        </div>
+
+        <div class="cloud">
+            <h3 class="float-left">Zadania</h3>
+            <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addTask"></i></h5>
+
+            <div>
+                @if (Model.Tasks.Count == 0)
+                {
+                    <div>
+                        Zarząd nie ustawił jeszcze żadnych task-ów. <br />
+
+                        <small> Może czegoś jeszcze będą chcieli<i class="fas fa-laugh-wink"></i></small>
+                    </div>
+                }
+                else
+                {
+                    var task = Model.Tasks[0];
+                    <div class="row">
+                        @if (task.StartDay <= DateTime.Today)
+                        {
+                            <div class="col-md-6">
+
+                                @switch (task.TaskState.Name)
                                 {
-                                    <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
-                                    <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
-                                    <div class="form-group row">
-                                        <label for="TaskStateID" class="col-sm-4 col-form-label">Status zadania</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" readonly class="form-control-plaintext" id="TaskStateID" name="TaskStateID" value="Nowe" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Name" class="col-sm-4 col-form-label">Nazwa zadania</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="Name" name="Name" class="form-control" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Description" class="col-sm-4 col-form-label">Opis zadania</label>
-                                        <div class="col-sm-8">
-                                            <textarea type="text" id="Description" name="Description" class="form-control"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="StartDay" class="col-sm-12 col-form-label">Czas rozpoczęcia</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" id="StartDay" name="StartDay" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="EndDay" class="col-sm-12 col-form-label">Czas zakończenia</label>
-                                            <div class="col-sm-12">
-                                                <input type="date" id="EndDay" name="EndDay" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="Member" class="col-sm-4 col-form-label">Osoba odpowiedzialna</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="Member" name="Member" class="form-control" list="members" />
-                                            <datalist id="members">
-                                                @foreach (var item in Model.ScienceClub.Members)
-                                                {
-                                                    <option value="@item.FirstName @item.LastName" />
-                                                }
-                                            </datalist>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="CategoryOfTask" class="col-sm-4 col-form-label">Piorytet zadania</label>
-                                        <div class="col-sm-8">
-                                            <select name="CategoryOfTask" id="CategoryOfTask" class="form-control">
-                                                @foreach (var item in Model.ScienceClub.CategoriesOfTasks)
-                                                {
-                                                    <option value="@item.ID">@item.Name</option>
-                                                }
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="btn btn-warning" style="width: 40%;text-align: center;display: inline-block; margin-left:30%;">
-                                        Dodaj
-                                    </button>
-
+                                    case "Nowe":<i class="fas fa-circle text-primary" aria-hidden="true"></i> break;
+                                    case "W trakcie": <i class="fas fa-circle text-warning" aria-hidden="true"></i>break;
+                                    case "Zakończone": <i class="fas fa-circle text-success" aria-hidden="true"></i>break;
+                                    case "Usunięte": <i class="fas fa-circle text-dark" aria-hidden="true"></i>break;
                                 }
+                                <span class="font-italic">
+                                    @task.TaskState.Name
+                                </span>
                             </div>
-                        </div>
+
+                            <div class="col-md-6">
+                                Do końca: @((task.EndDay - task.StartDay).ToString("dd")) dni
+                            </div>
+                            <div class="col-md-12">
+                                @task.Name
+                            </div>
+                            <div class="col-md-12">
+                                @task.Description
+                            </div>
+                            <div class="col-md-12">
+                                Osoba odpowiedzialna: @task.Member.Username
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                                Zadanie aktywne od dnia @task.StartDay.ToString("dd/MM") do @task.EndDay.ToString("dd/MM")
+                            </div>
+                        }
                     </div>
+                }
+            </div>
+        </div>
+
+        <div class="cloud">
+            <h3 style="float:left">Wybory</h3>
+            <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addElection"></i></h5>
+            <div class="m-2 shadow-sm">
+                <div class="election-count float-right pr-2 pt-1">
+                    @if (Model.Elections.Count != 0)
+                    {
+                        if (Model.Elections.Count > 1)
+                        {
+                            <span>
+
+                                <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
+                                <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
+                                <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
+                            </span>
+                        }
+                        else
+                        {
+                            <span>1 z 1</span>
+                        }
+
+                    }
                 </div>
-                <div>
-                    @if (Model.Tasks.Count == 0)
-                    {
-                        <div>
-                            Zarząd nie ustawił jeszcze żadnych task-ów. <br />
-
-                            <small> Może czegoś jeszcze będą chcieli<i class="fas fa-laugh-wink"></i></small>
-                        </div>
+                <div id="electionDiv">
+                    @{
+                        Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
                     }
-                    else
-                    {
-                        var task = Model.Tasks[0];
-                        <div class="row">
-                            @if (task.StartDay <= DateTime.Today)
-                            {
-                                <div class="col-md-6">
-
-                                    @switch (task.TaskState.Name)
-                                    {
-                                        case "Nowe":<i class="fas fa-circle text-primary" aria-hidden="true"></i> break;
-                                        case "W trakcie": <i class="fas fa-circle text-warning" aria-hidden="true"></i>break;
-                                        case "Zakończone": <i class="fas fa-circle text-success" aria-hidden="true"></i>break;
-                                        case "Usunięte": <i class="fas fa-circle text-dark" aria-hidden="true"></i>break;
-                                    }
-                                    <span class="font-italic">
-                                        @task.TaskState.Name
-                                    </span>
-                                </div>
-
-                                <div class="col-md-6">
-                                    Do końca: @((task.EndDay - task.StartDay).ToString("dd")) dni
-                                </div>
-                                <div class="col-md-12">
-                                    @task.Name
-                                </div>
-                                <div class="col-md-12">
-                                    @task.Description
-                                </div>
-                                <div class="col-md-12">
-                                    Osoba odpowiedzialna: @task.Member.Username
-                                </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    Zadanie aktywne od dnia @task.StartDay.ToString("dd/MM") do @task.EndDay.ToString("dd/MM")
-                                </div>
-                            }
-                        </div>
-                    }
-
                 </div>
             </div>
-            <div class="cloud mb-3">
-                <h3 style="float:left">Wybory</h3>
-                <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addElection"></i></h5>
-                <div class="modal fade" id="addElection" tabindex="-1" role="grid" aria-labelledby="AddElectionLabel" aria-hidden="true">
+        </div>
+    </div>
+    <div class="profileMain">
+        <div class="cloud">
+            <div class="postDiv">
+                <img src="@ViewBag.Logo" class="logo-sm" />
+                <p data-toggle="modal" data-target="#addPost"><i class="fas fa-seedling text-success"></i>Co w trawie piszczy? Utwórz post</p>
+                <div class="modal fade" id="addPost" tabindex="-1" role="grid" aria-labelledby="AddPostLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="AddElectionLabel">Dodaj nowe wybory!</h5>
+                                <h5 class="modal-title" id="AddPostLabel">Utwórz post</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body overflow-auto" style="height:460px;">
-                                @using (Html.BeginForm("Add", "Elections", FormMethod.Post, new { }))
+                                @using (Html.BeginForm("Add", "Posts", FormMethod.Post, new { }))
                                 {
-                                    <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                     <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
                                     <div class="form-group row">
-                                        <label for="Name" class="col-sm-4 col-form-label">Nazwa wyborów</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="Name" name="Name" class="form-control" />
+                                        <label for="Title" class="col-sm-2 col-form-label">Tytuł</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" id="Title" name="Title" class="form-control" />
                                         </div>
                                     </div>
+                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-bottom: 0px;">
+                                        <div class="btn-group mr-2" role="group" aria-label="First group">
+                                            <button type="button" id="heading" class="btn btn-secondary"><i class="fas fa-heading"></i></button>
+                                            <button type="button" id="bold" class="btn btn-secondary"><i class="fas fa-bold"></i></button>
+                                            <button type="button" id="italic" class="btn btn-secondary"><i class="fas fa-italic"></i></button>
+                                            <button type="button" id="underDecoration" class="btn btn-secondary"><i class="fas fa-underline"></i></button>
+                                            <button type="button" id="prev" class="btn btn-secondary"><i class="far fa-eye"></i></button>
+                                        </div>
+                                    </div>
+                                    <textarea id="post-creator" class="col-md-12" rows="10"></textarea>
+                                    <textarea name="Text" id="Text" hidden></textarea>
+                                    <div id="prevDiv"></div>
                                     <div class="form-group row">
-                                        <label for="DayOfStart" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
-                                        <div class="col-sm-8">
-                                            <input type="datetime-local" id="DayOfStart" name="DayOfStart" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                                        <label class="col-md-2 mt-3 col-form-label" for="Img">Obraz</label>
+                                        <div class="col-md-10">
+                                            <div id="msg"></div>
+                                            <form method="post" id="image-form">
+                                                <input type="file" name="Img" class="file" style="display:none;" accept="image/*">
+                                                <input type="hidden" id="LogoBase64" name="LogoBase64">
+                                                <div class="input-group my-3">
+                                                    <div class="input-group-prepend">
+                                                        <button type="button" class="browse btn btn-warning">Przeglądaj...</button>
+                                                    </div>
+                                                    <input type="text" class="form-control " disabled placeholder="Zamieść obraz" id="file">
+                                                </div>
+                                            </form>
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="DayOfEnd" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
-                                        <div class="col-sm-8">
-                                            <input type="datetime-local" id="DayOfEnd" name="DayOfEnd" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                                        <div class="col-md-12">
+                                            <img id="preview" style="display: none; width: 400px;">
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="CountOfChoices" class="col-sm-8 col-form-label">Maksymalna liczba oddanych głosów</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" id="CountOfChoices" name="CountOfChoices" class="form-control" value="1" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="options" class="col-sm-4 col-form-label">Opcje głosowania</label>
-                                        <div class="col-sm-8">
-                                            <textarea id="options" name="options" cols="40" rows="5" class="p-1"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button class="btn btn-sm btn-outline-dark">Podgląd</button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button class="btn btn-sm btn-warning float-right">Dodaj</button>
-                                        </div>
+                                        <button class="btn btn-outline-warning">Udostępnij</button>
                                     </div>
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="m-2 shadow-sm">
-                    <div class="election-count float-right pr-2 pt-1">
-                        @if (Model.Elections.Count != 0)
-                        {
-                            if (Model.Elections.Count > 1)
-                            {
-                                <span>
-
-                                    <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
-                                    <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
-                                    <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
-                                </span>
-                            }
-                            else
-                            {
-                                <span>1 z 1</span>
-                            }
-
-                        }
-                    </div>
-                    <div id="electionDiv">
-                        @{
-                            Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
-                        }
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="cloud mb-3">
-                <div class="postDiv">
-                    <img src="@ViewBag.Logo" class="logo-sm" />
-                    <p data-toggle="modal" data-target="#addPost"><i class="fas fa-seedling text-success"></i>Co w trawie piszczy? Utwórz post</p>
-                    <div class="modal fade" id="addPost" tabindex="-1" role="grid" aria-labelledby="AddPostLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="AddPostLabel">Utwórz post</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body overflow-auto" style="height:460px;">
-                                    @using (Html.BeginForm("Add", "Posts", FormMethod.Post, new { }))
-                                    {
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                        <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
-                                        <div class="form-group row">
-                                            <label for="Title" class="col-sm-2 col-form-label">Tytuł</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" id="Title" name="Title" class="form-control" />
-                                            </div>
-                                        </div>
-                                        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups" style="margin-bottom: 0px;">
-                                            <div class="btn-group mr-2" role="group" aria-label="First group">
-                                                <button type="button" id="heading" class="btn btn-secondary"><i class="fas fa-heading"></i></button>
-                                                <button type="button" id="bold" class="btn btn-secondary"><i class="fas fa-bold"></i></button>
-                                                <button type="button" id="italic" class="btn btn-secondary"><i class="fas fa-italic"></i></button>
-                                                <button type="button" id="underDecoration" class="btn btn-secondary"><i class="fas fa-underline"></i></button>
-                                                <button type="button" id="prev" class="btn btn-secondary"><i class="far fa-eye"></i></button>
-                                            </div>
-                                        </div>
-                                        <textarea id="post-creator" class="col-md-12" rows="10"></textarea>
-                                        <textarea name="Text" id="Text" hidden></textarea>
-                                        <div id="prevDiv"></div>
-                                        <div class="form-group row">
-                                            <label class="col-md-2 mt-3 col-form-label" for="Img">Obraz</label>
-                                            <div class="col-md-10">
-                                                <div id="msg"></div>
-                                                <form method="post" id="image-form">
-                                                    <input type="file" name="Img" class="file" style="display:none;" accept="image/*">
-                                                    <input type="hidden" id="LogoBase64" name="LogoBase64">
-                                                    <div class="input-group my-3">
-                                                        <div class="input-group-prepend">
-                                                            <button type="button" class="browse btn btn-warning">Przeglądaj...</button>
-                                                        </div>
-                                                        <input type="text" class="form-control " disabled placeholder="Zamieść obraz" id="file">
-                                                    </div>
-                                                </form>
-                                            </div>
-                                            <div class="col-md-12">
-                                                <img id="preview" style="display: none; width: 400px;">
-                                            </div>
-                                            <button class="btn btn-outline-warning">Udostępnij</button>
-                                        </div>
-                                    }
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        @{
+            Html.RenderAction("ScienceClubPosts", "Partials", new { scienceClubID = Model.ScienceClub.ID });
+        }
+    </div>
+</div>
+
+<!-- BOOSTRAP MODALS INSERT HERE -->
+<!-- SHOW SCIENCECLUB'S MEMBERS -->
+<div class="modal fade" id="membersList" tabindex="-1" role="grid" aria-labelledby="membersListLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="membersListLabel">Lista członków koła naukowego <span class="text_orange">@Model.ScienceClub.Name</span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-            @{ 
-                Html.RenderAction("ScienceClubPosts", "Partials", new { scienceClubID = Model.ScienceClub.ID});
-            }
+            <div class="modal-body overflow-auto" style="height:300px;">
+                @{
+                    Html.RenderAction("GetScienceClubMembers", "Partials");
+                }
+            </div>
         </div>
     </div>
 </div>
+
+<!-- ADD NEW TASK -->
+<div class="modal fade" id="addTask" tabindex="-1" role="grid" aria-labelledby="AddTaskLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddTaskLabel">Dodaj nowe zadanie!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body overflow-auto" style="height:500px;">
+                @using (Html.BeginForm("Add", "Tasks", FormMethod.Post, new { }))
+                {
+                    <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
+                    <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
+                    <div class="form-group row">
+                        <label for="TaskStateID" class="col-sm-4 col-form-label">Status zadania</label>
+                        <div class="col-sm-8">
+                            <input type="text" readonly class="form-control-plaintext" id="TaskStateID" name="TaskStateID" value="Nowe" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-4 col-form-label">Nazwa zadania</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="Name" name="Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Description" class="col-sm-4 col-form-label">Opis zadania</label>
+                        <div class="col-sm-8">
+                            <textarea type="text" id="Description" name="Description" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label for="StartDay" class="col-sm-12 col-form-label">Czas rozpoczęcia</label>
+                            <div class="col-sm-12">
+                                <input type="date" id="StartDay" name="StartDay" value="@DateTime.Today.ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="EndDay" class="col-sm-12 col-form-label">Czas zakończenia</label>
+                            <div class="col-sm-12">
+                                <input type="date" id="EndDay" name="EndDay" value="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Member" class="col-sm-4 col-form-label">Osoba odpowiedzialna</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="Member" name="Member" class="form-control" list="members" />
+                            <datalist id="members">
+                                @foreach (var item in Model.ScienceClub.Members)
+                                {
+                                    <option value="@item.FirstName @item.LastName" />
+                                }
+                            </datalist>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="CategoryOfTask" class="col-sm-4 col-form-label">Piorytet zadania</label>
+                        <div class="col-sm-8">
+                            <select name="CategoryOfTask" id="CategoryOfTask" class="form-control">
+                                @foreach (var item in Model.ScienceClub.CategoriesOfTasks)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-warning" style="width: 40%;text-align: center;display: inline-block; margin-left:30%;">
+                        Dodaj
+                    </button>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ADD NEW ELECTION -->
+<div class="modal fade" id="addElection" tabindex="-1" role="grid" aria-labelledby="AddElectionLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AddElectionLabel">Dodaj nowe wybory!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body overflow-auto" style="height:460px;">
+                @using (Html.BeginForm("Add", "Elections", FormMethod.Post, new { }))
+                {
+                    <input type="hidden" id="RedirectURL" name="RedirectURL" value="/ScienceClubs/Details/@Model.ScienceClub.ID">
+                    <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ScienceClub.ID">
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-4 col-form-label">Nazwa wyborów</label>
+                        <div class="col-sm-8">
+                            <input type="text" id="Name" name="Name" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="DayOfStart" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
+                        <div class="col-sm-8">
+                            <input type="datetime-local" id="DayOfStart" name="DayOfStart" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="DayOfEnd" class="col-sm-4 col-form-label">Czas rozpoczęcia</label>
+                        <div class="col-sm-8">
+                            <input type="datetime-local" id="DayOfEnd" name="DayOfEnd" value="@DateTime.Today.ToString("yyyy-MM-ddThh:mm")" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="CountOfChoices" class="col-sm-8 col-form-label">Maksymalna liczba oddanych głosów</label>
+                        <div class="col-sm-4">
+                            <input type="number" id="CountOfChoices" name="CountOfChoices" class="form-control" value="1" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="options" class="col-sm-4 col-form-label">Opcje głosowania</label>
+                        <div class="col-sm-8">
+                            <textarea id="options" name="options" cols="32" rows="5" class="p-1"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-sm btn-outline-dark">Podgląd</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-sm btn-warning float-right">Dodaj</button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- SCRIPTS -->
 <script>
     var placeholder = 'Każdą opcję wyboru oddzielaj enterem \nOznaczyć użytkownika w wyborach możesz za pomocą \u0040';
     var ta = document.getElementById("options");

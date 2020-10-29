@@ -4,6 +4,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
+body,html {
+    background-color: #F0F2F5;
+}
 .wrapperLogin {
     font-family: "Poppins", sans-serif;
     display: flex;
@@ -287,6 +290,87 @@
             font-size: 20px;
         }
 
+
+.profileInfo {
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    box-shadow: 0 8px 6px -6px #f35b3f;
+    padding-bottom: 30px;
+    margin-bottom: 6px;
+    background-color: #fff;
+}
+
+    .profileInfo .profileLogo {
+        flex-direction: row;
+    }
+
+        .profileInfo .profileLogo img {
+            border: 2px solid #27282A;
+            border-radius: 50%;
+            width: 150px;
+            background-color: #27282A;
+        }
+
+        .profileInfo .profileLogo .profileName {
+            float: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+.profileContainer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1%;
+    background-color: #F0F2F5;
+}
+
+.profileMain {
+    width: 40%;
+    min-height:75vh;
+}
+
+.profileSidebar {
+    width: 30%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+@media screen and (max-width: 750px) {
+    .profileInfo {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .mt-7 {
+        margin-top: 1rem !important;
+    }
+
+    .profileContainer {
+        flex-direction: column;
+    }
+
+    .profileMain {
+        width: 100%;
+    }
+
+    .profileSidebar{
+        width:100%;
+        position: unset;
+    }
+}
+
+.mt-6 {
+    margin-top: 5rem !important;
+}
+
+@media screen and (min-width: 750px) {
+    .mt-7 {
+        margin-top: 7rem !important;
+    }
+}
+
 .respect {
     font-weight: 500;
 }
@@ -295,6 +379,7 @@
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
+    margin-top: 1rem;
 }
 
 .data .user_info h3 {
@@ -349,15 +434,16 @@
                 font-weight: 300;
                 font-size: 16px;
             }
-        .clubProfile .info .btn{
+
+        .clubProfile .info .btn {
             margin-top: 110px;
         }
 
-        .clubProfile .info .clubButtons{
+        .clubProfile .info .clubButtons {
             text-align: right;
         }
 
-.memberListItem a{
+.memberListItem a {
     color: black;
     text-decoration: none;
 }
@@ -369,8 +455,8 @@
     float: left;
 }
 
-.dataMemberListItem{
-    line-height:30px;
+.dataMemberListItem {
+    line-height: 30px;
     font-size: 16px;
     font-weight: 500;
     margin-left: 10px;
@@ -454,7 +540,7 @@
 .vl {
     border-left: 1px solid #DBDBDB;
     height: 40px;
-    float:left;
+    float: left;
     margin: 0 10px 0 10px;
 }
 
@@ -463,12 +549,12 @@
     position: absolute;
 }
 
-.img-thumbnail{
+.img-thumbnail {
     width: 100px;
     border-radius: 50%;
 }
 
-.logo-sm{
+.logo-sm {
     border-radius: 50%;
     width: 50px;
 }
@@ -483,31 +569,33 @@
 /*
     DISPLAY ELECTION
 */
-.election-title{
-
+.election-title {
 }
-.election-options{
 
+.election-options {
 }
+
     .election-options a {
         color: #212529;
     }
+
         .election-options a:hover {
             color: #f35b3f;
-            text-decoration:none;
+            text-decoration: none;
         }
 
 /*
     Adding post
 */
 
-.postDiv{
-    width:100%;
+.postDiv {
+    width: 100%;
 }
 
-.postDiv img{
-    float:left;
-}
+    .postDiv img {
+        float: left;
+    }
+
     .postDiv p {
         line-height: 50px;
         width: calc(100% - 70px);
@@ -525,9 +613,9 @@
             cursor: pointer;
         }
 
-.postLogo{
-    float:left;
-    width:60px;
+.postLogo {
+    float: left;
+    width: 60px;
 }
 
 .menuSettings {
@@ -548,12 +636,21 @@
         text-decoration: none;
     }
 
-.menuSettings .selected{
-    cursor: default;
-}
+    .menuSettings .selected {
+        cursor: default;
+    }
 
-.subhead-heading{
+.subhead-heading {
     font-size: 24px;
     font-weight: 400;
     flex: 1 1 auto;
+}
+
+footer {
+    position: inherit;
+    bottom: 0;
+    width: calc(100% - 260px);
+    height: 60px;
+    line-height: 60px;
+    background-color: #F0F2F5;
 }
