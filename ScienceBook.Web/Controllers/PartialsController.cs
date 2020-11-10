@@ -133,5 +133,16 @@ namespace ScienceBook.Web.Controllers
             }
             return PartialView("_ScienceClubPosts");
         }
+
+        public ActionResult ScienceClubEvent(int? id)
+        {
+            var ev = db.Events.Find(id);
+            var ml = db.MailingList.Where(m => m.ScienceClubID == ev.ScienceClubID).ToList();
+
+            ViewBag.Event = ev;
+            ViewBag.MailingList = ml;
+
+            return PartialView("_ScienceClubEvent", ev);
+        }
     }
 }

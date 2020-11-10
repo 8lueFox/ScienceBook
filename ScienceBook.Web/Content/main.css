@@ -654,3 +654,33 @@ footer {
     line-height: 60px;
     background-color: #F0F2F5;
 }
+
+.seventyPercent {
+    width: 70%;
+    min-height: 75vh;
+}
+
+.nintyPercent {
+    width: 90%;
+    min-height: 75vh;
+}
+
+@media only screen and (max-width: 770px) {
+    .seventyPercent {
+        width: 100%;
+    }
+
+    .nintyPercent {
+        width: 100%;
+    }
+}
+
+.event-calendar {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    -webkit-text-decoration: #f35b3f double underline;
+    text-decoration: #f35b3f double underline;
+    border-bottom: 2px solid #D3D3D3;
+}

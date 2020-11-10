@@ -169,6 +169,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ElectionsController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MembersController.cs" />
@@ -189,7 +190,10 @@
     <Compile Include="Models\DbModels\CategoryOfTask.cs" />
     <Compile Include="Models\DbModels\Department.cs" />
     <Compile Include="Models\DbModels\Election.cs" />
+    <Compile Include="Models\DbModels\Event.cs" />
+    <Compile Include="Models\DbModels\EventParticipants.cs" />
     <Compile Include="Models\DbModels\FieldOfStudy.cs" />
+    <Compile Include="Models\DbModels\MailingList.cs" />
     <Compile Include="Models\DbModels\Member.cs" />
     <Compile Include="Models\DbModels\OptionsInElection.cs" />
     <Compile Include="Models\DbModels\Post.cs" />
@@ -302,6 +306,9 @@
     <Content Include="Views\ScienceClubManagement\_Members.cshtml" />
     <Content Include="Views\ScienceClubManagement\_General.cshtml" />
     <Content Include="Views\ScienceClubs\MembershipDeclaration.cshtml" />
+    <Content Include="Views\Events\AddEvent.cshtml" />
+    <Content Include="Views\Events\ShowAll.cshtml" />
+    <Content Include="Views\Partials\_ScienceClubEvent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

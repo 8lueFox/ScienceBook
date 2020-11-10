@@ -1,0 +1,33 @@
+﻿<div class="row">
+    <i class="col-md-12">@ViewBag.Event.Name</i>
+    <div class="col-md-12">@ViewBag.Event.StartDay.ToString("dddd, dd MMMM yyyy HH:mm") - @ViewBag.Event.EndDay.ToString("dddd, dd MMMM yyyy HH:mm")</div>
+</div>
+<div style="white-space: pre-line">@ViewBag.Event.Description</div>
+@if (ViewBag.Event.Link != null)
+{
+    <div>Link do spotkania: <a href="@ViewBag.Event.Link" style="color: #f35b3f; text-decoration:underline;" target="_blank">@ViewBag.Event.Link</a></div>
+}
+@if (ViewBag.Event.Img != null)
+{
+    <div>
+        <img src="@ViewBag.Event.Img" style="max-width:100%;" />
+    </div>
+}
+<div class="row">
+    <button class="btn btn-info">Weż udział jako słuchacz</button>
+    <button class="btn btn-info">Weż udział jako prelegent</button>
+</div>
+<div class="row">
+    <button class="btn btn-outline-warning" style="width:49%;">Zaproś członków koła</button>
+    <div class="row col-md-6">
+        @using (Html.BeginForm("InviteGuests", "Events", FormMethod.Post, new { }))
+        {
+            <input type="hidden" id="eventID" name="eventID" value="@ViewBag.Event.ID">
+            foreach (var item in ViewBag.MailingList)
+            {
+                <input type="checkbox" id="quests" name="quests" value="@item.ID" /> <p>@item.FirstName @item.LastName (@item.Firm)</p>
+            }
+            <input type="submit" value="Zaproś" class="btn btn-warning" />
+        }
+    </div>
+</div>

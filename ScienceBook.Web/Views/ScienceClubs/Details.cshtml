@@ -144,6 +144,37 @@
     </div>
     <div class="profileMain">
         <div class="cloud">
+            <h3 style="float:left">Wydarzenia</h3>
+            <h5><a href="../../Events/AddEvent?id=@Model.ScienceClub.ID" style="color: #f35b3f;"><i class="fas fa-plus"></i></a></h5>
+
+            @if (Model.Event != null)
+            {
+                <p>Najbliższe wydarzenie</p>
+
+                <div class="row">
+                    <i class="col-md-12">@Model.Event.Name</i>
+                    <div class="col-md-12">@Model.Event.StartDay.ToString("dddd, dd MMMM yyyy HH:mm") - @Model.Event.EndDay.ToString("dddd, dd MMMM yyyy HH:mm")</div>
+                </div>
+                <div style="white-space: pre-line">@Model.Event.Description</div>
+                if (Model.Event.Link != null)
+                {
+                    <div>Link do spotkania: <a href="@Model.Event.Link" style="color: #f35b3f; text-decoration:underline;" target="_blank">@Model.Event.Link</a></div>
+                }
+                if (Model.Event.Img != null)
+                {
+                    <div>
+                        <img src="@Model.Event.Img" style="max-width:100%;" />
+                    </div>
+                }
+
+                <div>@Html.ActionLink("Zobacz kalendarz koła naukowego", "ShowAll", "Events", new { id = Model.ScienceClub.ID }, null)</div>
+            }
+            else
+            {
+                <p>Obecnie koło nie organizuje żadnych wydarzeń.</p>
+            }
+        </div>
+        <div class="cloud">
             <div class="postDiv">
                 <img src="@ViewBag.Logo" class="logo-sm" />
                 <p data-toggle="modal" data-target="#addPost"><i class="fas fa-seedling text-success"></i>Co w trawie piszczy? Utwórz post</p>

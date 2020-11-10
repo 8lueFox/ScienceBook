@@ -11,5 +11,6 @@ namespace ScienceBook.Web.Models.ViewModels
         public ScienceClub ScienceClub { get; set; }
         public List<Task> Tasks { get; set; }
         public List<Election> Elections { get; set; }
+        public Event Event { get; set; }
     }
 }
