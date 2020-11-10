@@ -59,6 +59,13 @@ namespace ScienceBook.Web.Controllers
             }
         }
 
+        // GET: /Account/LoginIndex
+        [AllowAnonymous]
+        public ActionResult LoginIndex()
+        {
+            return View();
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -77,7 +84,7 @@ namespace ScienceBook.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("LoginIndex", model);
             }
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
@@ -95,7 +102,7 @@ namespace ScienceBook.Web.Controllers
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
+                        return View("LoginIndex", model);
                 }
             }
             return View("PleaseConfirmEmail");

@@ -219,6 +219,7 @@
     <Content Include="App_Data\images\papugi.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\backgroundLoginPage.jpg" />
     <Content Include="Content\images\icons\android-icon-144x144.png" />
     <Content Include="Content\images\icons\android-icon-192x192.png" />
     <Content Include="Content\images\icons\android-icon-36x36.png" />
@@ -226,6 +227,7 @@
     <Content Include="Content\images\icons\favicon-16x16.png" />
     <Content Include="Content\images\icons\favicon-32x32.png" />
     <Content Include="Content\images\icons\ms-icon-310x310.png" />
+    <Content Include="Content\login_css.css" />
     <Content Include="Content\sidebar.css" />
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
@@ -309,6 +311,8 @@
     <Content Include="Views\Events\AddEvent.cshtml" />
     <Content Include="Views\Events\ShowAll.cshtml" />
     <Content Include="Views\Partials\_ScienceClubEvent.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Account\LoginIndex.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -26,6 +26,9 @@ namespace ScienceBook.Web
                       "~/Content/bootstrap.css",
                       "~/Content/sidebar.css",
                       "~/Content/main.css"));
+
+            bundles.Add(new StyleBundle("~/Content/loginCSS").Include(
+                      "~/Content/login_css.css"));
         }
     }
 }
