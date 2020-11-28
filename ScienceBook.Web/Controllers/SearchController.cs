@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ScienceBook.Web.Controllers
 {
+    [Authorize]
     public class SearchController : Controller
     {
         private ScienceBookContext db;

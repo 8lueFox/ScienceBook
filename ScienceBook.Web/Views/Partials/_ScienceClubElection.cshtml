@@ -61,7 +61,10 @@
                 }
                 if (item.Value.Contains("<a href"))
                 {
-                    @Html.Raw(item.Value)
+                    <span class="specialElectionOption">
+                        @Html.Raw(item.Value)
+                    </span>
+
 
                     if (ViewBag.Percents[interator] != null)
                     {

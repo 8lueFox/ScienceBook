@@ -4,6 +4,7 @@
     ViewBag.Title = "ShowAll";
     DateTime lastDay = DateTime.MinValue;
     var events = Model.Events.OrderBy(e => e.StartDay);
+    var otherColor = true;
 }
 
 <div class="profileInfo">
@@ -17,26 +18,55 @@
 </div>
 
 <div class="profileContainer">
-    <div class="nintyPercent">
-        <div class="cloud row">
-            <div class="col-sm-12 col-md-6">
+    <div class="hundredPercent">
+        <div class="cloud row" style="background-color: #14171A">
+            <div class="col-sm-12 col-md-6" style="border-right:2px solid white;">
                 <h4>Terminarz</h4>
                 @foreach (var item in events)
                 {
-                    if(lastDay == DateTime.MinValue)
+                    if (lastDay == DateTime.MinValue)
                     {
                         lastDay = item.StartDay;
                         <div class="text-muted"><b>@lastDay.ToString("dddd, dd MMMM yyyy")</b></div>
-                        <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
-                    }else if(lastDay.Day == item.StartDay.Day && lastDay.Month == item.StartDay.Month && lastDay.Year == item.StartDay.Year)
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+
+                    }
+                    else if (lastDay.Day == item.StartDay.Day && lastDay.Month == item.StartDay.Month && lastDay.Year == item.StartDay.Year)
                     {
-                        <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
                     }
                     else
                     {
                         lastDay = item.StartDay;
                         <div class="text-muted"><b>@lastDay.ToString("dddd, dd MMMM yyyy")</b></div>
-                        <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
                     }
                 }
             </div>

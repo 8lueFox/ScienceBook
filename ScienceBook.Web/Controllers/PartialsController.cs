@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace ScienceBook.Web.Controllers
 {
+    [Authorize]
     public class PartialsController : Controller
     {
         ScienceBookContext db = new ScienceBookContext();

@@ -16,7 +16,7 @@
     <!-- RIGHT SIDE -->
     <div class="row col-md-6 col-sm-12 vertical-center-without-size" id="login-page-right-side">
         <div class="col-sm-12 mt-sm-5 mt-md-0">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = "LoginIndex" }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <div class="user-box">
@@ -35,7 +35,7 @@
         <div class="col-sm-12 font-weight-bold text-white text-center" style="font-size:24px;">
             Zobacz, co się dzieje w świecie<br /> nauki w tym momencie.
         </div>
-        <div class="col-sm-12 text-white text-center">
+        <div class="col-sm-12 mb-sm-5 mb-md-0 text-white text-center">
             <p>Dołącz do ScienceBook-a.</p>
             <a href="/Account/Register">
                 <button class="btn btn-warning btn-rounded mt-3" style="width:60%;">Zarejestruj się</button>
@@ -43,7 +43,7 @@
             <a href="/Account/Login">
                 <button class="btn btn-outline-warning btn-rounded mt-3" style="width:60%;">Zaloguj się</button>
             </a>
-            
+
         </div>
     </div>
 </div>

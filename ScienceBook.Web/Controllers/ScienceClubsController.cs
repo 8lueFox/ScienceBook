@@ -14,6 +14,7 @@ using ScienceBook.Web.Models.ViewModels;
 
 namespace ScienceBook.Web.Controllers
 {
+    [Authorize]
     public class ScienceClubsController : Controller
     {
         private ScienceBookContext db = new ScienceBookContext();

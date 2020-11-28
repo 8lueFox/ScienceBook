@@ -49,6 +49,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -217,8 +218,6 @@
     <Content Include="App_Data\images\genbit.png" />
     <Content Include="App_Data\images\labedzie.jpg" />
     <Content Include="App_Data\images\papugi.jpg" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\images\backgroundLoginPage.jpg" />
     <Content Include="Content\images\icons\android-icon-144x144.png" />
     <Content Include="Content\images\icons\android-icon-192x192.png" />
@@ -231,12 +230,7 @@
     <Content Include="Content\sidebar.css" />
     <Content Include="Content\main.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.bundle.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="serviceworker.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -271,17 +265,13 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="fonts\" />
+    <Folder Include="Scripts\" />
     <Folder Include="Views\Elections\" />
     <Folder Include="Views\Posts\" />
     <Folder Include="Views\Tasks\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="manifest.json" />
     <None Include="packages.config" />
     <Content Include="Views\Members\Create.cshtml" />
@@ -291,7 +281,6 @@
     <Content Include="Views\Members\Index.cshtml" />
     <Content Include="Views\Partials\_UserInfo.cshtml" />
     <Content Include="Views\Partials\_UserScienceClubs.cshtml" />
-    <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Views\Offline\Index.cshtml" />
     <Content Include="Views\Search\Search.cshtml" />
     <Content Include="Views\Account\PleaseConfirmEmail.cshtml" />

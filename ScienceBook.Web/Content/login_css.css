@@ -45,8 +45,8 @@
 
 .user-box {
     position: relative;
-    float:left;
-    width:28%;
+    float: left;
+    width: 28%;
     margin-right: 2%;
     margin-left: 3%;
 }
@@ -56,7 +56,6 @@
         padding: 10px 0;
         font-size: 16px;
         color: #fff;
-        margin-bottom: 30px;
         border: none;
         border-bottom: 1px solid #fff;
         outline: none;
@@ -95,11 +94,17 @@
         background: transparent;
     }
 
+    .user-box small {
+        margin-bottom:30px;
+        display:block;
+        color: red;
+    }
+
 .bg-own-dark {
     background-color: #14171A;
 }
 
-.mt-10{
+.mt-10 {
     margin-top: 30%;
 }
 
