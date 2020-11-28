@@ -59,6 +59,13 @@ namespace ScienceBook.Web.Controllers
             }
         }
 
+        // GET: /Account/LoginIndex
+        [AllowAnonymous]
+        public ActionResult LoginIndex()
+        {
+            return View();
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -77,10 +84,16 @@ namespace ScienceBook.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                ViewBag.LoginError = "Błędne logowanie!";
+                return RedirectToAction(returnUrl);
             }
 
             ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindByEmail(model.Email);
+            if (user == null)
+            {
+                ViewBag.LoginError = "Błędne logowanie!";
+                return RedirectToAction(returnUrl);
+            }
 
             if (user.EmailConfirmed) {
                 var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -95,7 +108,7 @@ namespace ScienceBook.Web.Controllers
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
+                        return View("LoginIndex", model);
                 }
             }
             return View("PleaseConfirmEmail");
@@ -174,6 +187,7 @@ namespace ScienceBook.Web.Controllers
                         Email = model.Email,
                         LastName = model.LastName,
                         FirstName = model.FirstName,
+                        Username = model.Username,
                         JoinDate = DateTime.Now,
                         FieldOfStudyID = 1
                     };

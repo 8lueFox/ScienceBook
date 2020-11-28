@@ -1,0 +1,99 @@
+﻿@model ScienceBook.Web.Models.DbModels.ScienceClub
+
+@{
+    ViewBag.Title = "AddEvent";
+}
+
+<div class="profileInfo">
+    <div class="profileLogo">
+        <span style="float:left;"><img src="@ViewBag.Logo" /></span>
+        <span class="profileName mt-6 ml-2">
+            <span class="font-weight-bold h4">@Model.Name</span>
+            <span class="font-italic">@Model.CategoryOfScienceClub.Name</span>
+        </span>
+    </div>
+</div>
+<div class="profileContainer">
+    <div class="seventyPercent">
+        <div class="cloud">
+            <h4>Dodawanie nowego wydarzenia</h4>
+            @using (Html.BeginForm("AddEvt", "Events", FormMethod.Post, new { }))
+            {
+                <input type="hidden" id="ScienceClubID" name="ScienceClubID" value="@Model.ID">
+                <div class="form-group row">
+                    <label for="Title" class="col-sm-12 col-form-label">Nazwa wydarzenia</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="Title" name="Title" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Title" class="col-sm-12 col-form-label">Opis wydarzenia</label>
+                    <div class="col-sm-12">
+                        <textarea name="Description" id="Description" style="width:100%;" rows="5" class="form-control" onkeypress="onTextChangeEnter();"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="Title" class="col-sm-12 col-form-label">Link do wydarzenia</label>
+                    <div class="col-sm-12">
+                        <input type="text" id="Link" name="Link" class="form-control" placeholder="Pozostaw puste, jeżeli spotkanie nie jest zdalne"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        <label for="StartDay" class="col-sm-12 col-form-label">Czas rozpoczęcia</label>
+                        <div class="col-sm-12">
+                            <input type="datetime-local" id="StartDay" name="StartDay" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="EndDay" class="col-sm-12 col-form-label">Czas zakończenia</label>
+                        <div class="col-sm-12">
+                            <input type="datetime-local" id="EndDay" name="EndDay" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-2 mt-3 col-form-label" for="Logo">Grafika</label>
+                    <div class="col-md-4">
+                        <div id="msg"></div>
+                        <div class="form">
+                            <input type="file" name="Logo" class="file" step="display:none;" accept="image/*" />
+                            <textarea id="LogoBase24" name="LogoBase24" style="display:none;"></textarea>
+                            <div class="input-group my-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="browse btn btn-outline-warning">Przeglądaj...</button>
+                                </div>
+                                <input type="text" class="form-control " disabled placeholder="Zamieść obraz" id="file">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img id="preview" style="display: none; max-width:100%;">
+                    </div>
+                </div>
+                <input type="submit" value="Dodaj" class="btn btn-warning" />
+            }
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).on("click", ".browse", function () {
+        var file = $(this).parents().find(".file");
+        file.trigger("click");
+    });
+    $('input[type="file"]').change(function (e) {
+        var fileName = e.target.files[0].name;
+        $("#file").val(fileName);
+
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("preview").src = e.target.result;
+            document.getElementById("LogoBase24").value = e.target.result;
+        };
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    });
+</script>

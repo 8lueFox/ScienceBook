@@ -10,6 +10,8 @@ namespace ScienceBook.Web.Controllers
     {
         public ActionResult Index()
         {
+            if (!Request.IsAuthenticated)
+                return Redirect("~/Account/LoginIndex");    
             return View();
         }
 

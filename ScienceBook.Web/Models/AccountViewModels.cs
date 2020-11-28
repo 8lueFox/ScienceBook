@@ -67,21 +67,32 @@ namespace ScienceBook.Web.Models
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
+        [StringLength(60, ErrorMessage = "{0} musi mieć co najmniej {2} znaki.", MinimumLength = 3)]
         public string Email { get; set; }
         [Required]
+        [Display(Name = "Imię")]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaki.", MinimumLength = 3)]
         public string FirstName { get; set; }
         [Required]
+        [Display(Name = "Nazwisko")]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaki.", MinimumLength = 3)]
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [Display(Name = "Nazwa użytkownika")]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaki.", MinimumLength = 3)]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Hasło powtórzone")]
+        [StringLength(500, ErrorMessage = "{0} musi mieć co najmniej {2} znaków.", MinimumLength = 6)]
+        [Compare("Password", ErrorMessage = "Hasła nie są identyczne.")]
         public string ConfirmPassword { get; set; }
     }
 

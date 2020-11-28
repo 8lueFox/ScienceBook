@@ -11,6 +11,7 @@ using ScienceBook.Web.Models.DbModels;
 
 namespace ScienceBook.Web.Controllers
 {
+    [Authorize]
     public class MembersController : Controller
     {
         private ScienceBookContext db = new ScienceBookContext();

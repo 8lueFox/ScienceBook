@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace ScienceBook.Web.Controllers
 {
+    [Authorize]
     public class ElectionsController : Controller
     {
         private ScienceBookContext db;

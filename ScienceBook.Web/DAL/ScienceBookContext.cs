@@ -30,6 +30,9 @@ namespace ScienceBook.Web.DAL
         public DbSet<OptionsInElection> OptionsInElections { get; set; }
         public DbSet<Vote> Votes { get; set; }
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<MailingList> MailingList { get; set; }
+        public DbSet<EventParticipant> EventParticipants { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -44,6 +47,11 @@ namespace ScienceBook.Web.DAL
                 .HasRequired(t => t.ScienceClub)
                 .WithMany()
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<EventParticipant>()
+               .HasRequired(t => t.Members)
+               .WithMany()
+               .WillCascadeOnDelete(false);
         }
     }
 }

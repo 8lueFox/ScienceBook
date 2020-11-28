@@ -34,116 +34,40 @@
     </div>
 </div>
 <div class="profileContainer">
-    <div class="profileSidebar">
-        <div class="cloud">
-            <h3>Informacje ogólne</h3>
-            <div>
-                <i class="fas fa-university"></i>
-                Uniwersytet:
-                <span class="respect">@Model.ScienceClub.Department.University.Name</span>
-            </div>
-            <div>
-                <i class="fas fa-school"></i>
-                Wydział:
-                <span class="respect">@Model.ScienceClub.Department.Name</span>
-            </div>
-            <div data-toggle="modal" data-target="#membersList">
-                <i class="fas fa-users" id="icon"></i>
-                Liczba członków:
-                <span class="respect">@Model.ScienceClub.Members.Count</span>
-            </div>
-        </div>
-
-        <div class="cloud">
-            <h3 class="float-left">Zadania</h3>
-            <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addTask"></i></h5>
-
-            <div>
-                @if (Model.Tasks.Count == 0)
-                {
-                    <div>
-                        Zarząd nie ustawił jeszcze żadnych task-ów. <br />
-
-                        <small> Może czegoś jeszcze będą chcieli<i class="fas fa-laugh-wink"></i></small>
-                    </div>
-                }
-                else
-                {
-                    var task = Model.Tasks[0];
-                    <div class="row">
-                        @if (task.StartDay <= DateTime.Today)
-                        {
-                            <div class="col-md-6">
-
-                                @switch (task.TaskState.Name)
-                                {
-                                    case "Nowe":<i class="fas fa-circle text-primary" aria-hidden="true"></i> break;
-                                    case "W trakcie": <i class="fas fa-circle text-warning" aria-hidden="true"></i>break;
-                                    case "Zakończone": <i class="fas fa-circle text-success" aria-hidden="true"></i>break;
-                                    case "Usunięte": <i class="fas fa-circle text-dark" aria-hidden="true"></i>break;
-                                }
-                                <span class="font-italic">
-                                    @task.TaskState.Name
-                                </span>
-                            </div>
-
-                            <div class="col-md-6">
-                                Do końca: @((task.EndDay - task.StartDay).ToString("dd")) dni
-                            </div>
-                            <div class="col-md-12">
-                                @task.Name
-                            </div>
-                            <div class="col-md-12">
-                                @task.Description
-                            </div>
-                            <div class="col-md-12">
-                                Osoba odpowiedzialna: @task.Member.Username
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                Zadanie aktywne od dnia @task.StartDay.ToString("dd/MM") do @task.EndDay.ToString("dd/MM")
-                            </div>
-                        }
-                    </div>
-                }
-            </div>
-        </div>
-
-        <div class="cloud">
-            <h3 style="float:left">Wybory</h3>
-            <h5><i class="fas fa-plus" data-toggle="modal" data-target="#addElection"></i></h5>
-            <div class="m-2 shadow-sm">
-                <div class="election-count float-right pr-2 pt-1">
-                    @if (Model.Elections.Count != 0)
-                    {
-                        if (Model.Elections.Count > 1)
-                        {
-                            <span>
-
-                                <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
-                                <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
-                                <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
-                            </span>
-                        }
-                        else
-                        {
-                            <span>1 z 1</span>
-                        }
-
-                    }
-                </div>
-                <div id="electionDiv">
-                    @{
-                        Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="profileMain">
-        <div class="cloud">
+        <div class="cloud ml-5 mr-5">
+            <h3 style="float:left; font-size:20px; width:100%;">Najbliższe wydarzenie</h3>
+            @if (ViewBag.IsScienceClubAdmin)
+            {
+                <h5><a href="../../Events/AddEvent?id=@Model.ScienceClub.ID" style="color: #f35b3f;"><i class="fas fa-plus"></i></a></h5>
+            }
+
+            @if (Model.Event != null)
+            {
+                <div class="row">
+                    <i class="col-sm-12">@Model.Event.Name</i>
+                    <div class="col-sm-12">@Model.Event.StartDay.ToString("dddd, dd MMMM yyyy HH:mm") - @Model.Event.EndDay.ToString("dddd, dd MMMM yyyy HH:mm")</div>
+                    <div class="col-sm-12" style="white-space: pre-line">@Model.Event.Description</div>
+                    @if (!Model.Event.Link.Equals(""))
+                    {
+                        <div class="col-sm-12">Link do spotkania: <a href="@Model.Event.Link" style="color: #f35b3f; text-decoration:underline;" target="_blank">@Model.Event.Link</a></div>
+                    }
+                    @if (Model.Event.Img != null)
+                    {
+                        <div class="col-sm-12 text-center">
+                            <img src="@Model.Event.Img" style="max-width:100%;" />
+                        </div>
+                    }
+                </div>
+
+                <div class="showAllBtn">@Html.ActionLink("Zobacz kalendarz koła naukowego", "ShowAll", "Events", new { id = Model.ScienceClub.ID }, null)</div>
+            }
+            else
+            {
+                <p>Obecnie koło nie organizuje żadnych wydarzeń.</p>
+            }
+        </div>
+        <div class="cloud ml-5 mr-5">
             <div class="postDiv">
                 <img src="@ViewBag.Logo" class="logo-sm" />
                 <p data-toggle="modal" data-target="#addPost"><i class="fas fa-seedling text-success"></i>Co w trawie piszczy? Utwórz post</p>
@@ -209,6 +133,134 @@
         @{
             Html.RenderAction("ScienceClubPosts", "Partials", new { scienceClubID = Model.ScienceClub.ID });
         }
+    </div>
+    <div class="sidebar-right">
+        <h3 style="font-size: 20px;" class="mt-4 ml-4">Informacje ogólne</h3>
+        <div class="col-sm-10 offset-sm-1">
+            <div class="font-weight-lighter mb-3">
+                <i class="fas fa-university"></i>
+                Uniwersytet:
+                <span class="respect">@Model.ScienceClub.Department.University.Name</span>
+            </div>
+            <div class="font-weight-lighter mb-3">
+                <i class="fas fa-school"></i>
+                Wydział:
+                <span class="respect">@Model.ScienceClub.Department.Name</span>
+            </div>
+            <div data-toggle="modal" data-target="#membersList" class="font-weight-lighter mb-3">
+                <i class="fas fa-users" id="icon"></i>
+                Liczba członków:
+                <span class="respect">@Model.ScienceClub.Members.Count</span>
+            </div>
+        </div>
+        <div style="clear:both;" class="border-down"></div>
+        <div class="row">
+            <div class="col-sm-6">
+                <h3 style="font-size: 20px; float: left;" class="mt-4 ml-3">Zadania</h3>
+            </div>
+            @if (ViewBag.IsScienceClubAdmin)
+            {
+                <div class="col-sm-6">
+                    <h3 style="font-size: 18px; float: right; color: #f35b3f;" class="mt-4 ml-4">
+                        <i class="fas fa-plus theySpinMe" data-toggle="modal" data-target="#addTask"></i>
+                    </h3>
+                </div>
+            }
+            @if (Model.Tasks.Count == 0)
+            {
+                <div class="col-sm-12 pl-5 mb-4">
+                    Zarząd nie ustawił jeszcze żadnych task-ów. <br />
+
+                    <small> Może czegoś jeszcze będą chcieli<i class="fas fa-laugh-wink"></i></small>
+                </div>
+            }
+            else
+            {
+                var task = Model.Tasks[0];
+                <div class="row ml-5 mb-4">
+                    @if (task.StartDay >= DateTime.Today)
+                    {
+                        <div class="col-md-6">
+
+                            @switch (task.TaskState.Name)
+                            {
+                                case "Nowe":<i class="fas fa-circle text-primary" aria-hidden="true"></i> break;
+                                case "W trakcie": <i class="fas fa-circle text-warning" aria-hidden="true"></i>break;
+                                case "Zakończone": <i class="fas fa-circle text-success" aria-hidden="true"></i>break;
+                                case "Usunięte": <i class="fas fa-circle text-dark" aria-hidden="true"></i>break;
+                            }
+                            <span class="font-italic">
+                                @task.TaskState.Name
+                            </span>
+                        </div>
+
+                        <div class="col-md-6">
+                            Do końca: @((task.EndDay - task.StartDay).ToString("dd")) dni
+                        </div>
+                        <div class="col-md-12">
+                            @task.Name
+                        </div>
+                        <div class="col-md-12">
+                            @task.Description
+                        </div>
+                        <div class="col-md-12">
+                            Osoba odpowiedzialna: @task.Member.Username
+                        </div>
+                    }
+                    else
+                    {
+                        <div>
+                            Zadanie aktywne od dnia @task.StartDay.ToString("dd/MM") do @task.EndDay.ToString("dd/MM")
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+        <div style="clear:both;" class="border-down"></div>
+        <div class="row ml-1">
+            @if (ViewBag.IsScienceClubAdmin)
+            {
+                <div class="col-sm-6">
+                    <h3 style="font-size: 20px; float: left;" class="mt-4 ml-3">Wybory</h3>
+                </div>
+                <div class="col-sm-6">
+                    <h3 style="font-size: 18px; float: right; color: #f35b3f;" class="mt-4 ml-4">
+                        <i class="fas fa-plus theySpinMe" data-toggle="modal" data-target="#addElection"></i>
+                    </h3>
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-12">
+                    <h3 style="font-size: 20px; float: left;" class="mt-4 ml-3">Wybory</h3>
+                </div>
+            }
+            <div id="electionDiv" class="pl-5">
+                @{
+                    Html.RenderAction("ScienceClubElection", "Partials", new { scienceClubID = Model.ScienceClub.ID, election = electionNumber });
+                }
+            </div>
+            <div class="election-count float-right pt-1 row col-md-10 ml-5">
+                @if (Model.Elections.Count != 0)
+                {
+                    if (Model.Elections.Count > 1)
+                    {
+                        <span>
+
+                            <i class="fas fa-arrow-left ml-1" id="arrowLeft"></i>
+                            <span id="electionNumberSpan">@electionNumber</span> z @Model.Elections.Count
+                            <i class="fas fa-arrow-right ml-1" id="arrowRight"></i>
+                        </span>
+                    }
+                    else
+                    {
+                        <span>1 z 1</span>
+                    }
+
+                }
+            </div>
+        </div>
+        <div style="clear:both;" class="border-down"></div>
     </div>
 </div>
 

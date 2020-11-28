@@ -4,8 +4,9 @@
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
-body,html {
-    background-color: #F0F2F5;
+body, html {
+    background-color: #14171A;
+    color: #F5F8FA;
 }
 .wrapperLogin {
     font-family: "Poppins", sans-serif;
@@ -295,10 +296,9 @@ body,html {
     padding: 10px;
     display: flex;
     justify-content: space-around;
-    box-shadow: 0 8px 6px -6px #f35b3f;
     padding-bottom: 30px;
-    margin-bottom: 6px;
-    background-color: #fff;
+    background-color: #27282A;
+    border-bottom: 2px solid white;
 }
 
     .profileInfo .profileLogo {
@@ -320,18 +320,27 @@ body,html {
 
 .profileContainer {
     display: flex;
-    justify-content: space-evenly;
-    padding-top: 1%;
-    background-color: #F0F2F5;
+    justify-content: flex-start;
+    background-color: #14171A;
 }
 
 .profileMain {
-    width: 40%;
-    min-height:75vh;
+    width: 60%;
+    min-height: 75vh;
+    background-color: #14171A;
 }
 
 .profileSidebar {
     width: 30%;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+.sidebar-right {
+    width: 40%;
+    background-color: #14171A;
+    border-left: 2px solid #F5F8FA;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -359,6 +368,12 @@ body,html {
         width:100%;
         position: unset;
     }
+
+    .sidebar-right {
+        width: 100%;
+        border-left: 0px solid white;
+        border-top: 2px solid white;
+    }
 }
 
 .mt-6 {
@@ -377,9 +392,11 @@ body,html {
 
 .cloud {
     padding: 20px;
-    background-color: #fff;
+    background-color: #27282A;
     border-radius: 8px;
     margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
 }
 
 .data .user_info h3 {
@@ -478,7 +495,7 @@ body,html {
     color: #f35b3f;
 }
 
-    .cloud h5 i:hover {
+    .cloud h5 i:hover, .theySpinMe {
         cursor: pointer;
         animation-name: zakrecPlusem;
         animation-duration: 0.4s;
@@ -601,7 +618,7 @@ body,html {
         width: calc(100% - 70px);
         margin-left: 60px;
         margin-bottom: 0px;
-        background-color: #DBDBDB;
+        border: 1px solid #DBDBDB;
         border-radius: 12px;
         text-align: center;
         font-weight: 700;
@@ -610,6 +627,7 @@ body,html {
 
         .postDiv p:hover {
             background-color: #CCCCCC;
+            color: #27282A;
             cursor: pointer;
         }
 
@@ -647,10 +665,75 @@ body,html {
 }
 
 footer {
-    position: inherit;
+    position: relative;
     bottom: 0;
-    width: calc(100% - 260px);
-    height: 60px;
-    line-height: 60px;
-    background-color: #F0F2F5;
+    width: 86%;
+    height: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    color: grey;
+    background-color: #14171A;
+}
+
+.seventyPercent {
+    width: 70%;
+    min-height: 75vh;
+}
+
+.nintyPercent {
+    width: 90%;
+    min-height: 75vh;
+}
+
+.hundredPercent {
+    width: 100%;
+    min-height: 75vh;
+}
+
+@media only screen and (max-width: 770px) {
+    .seventyPercent {
+        width: 100%;
+    }
+
+    .nintyPercent {
+        width: 100%;
+    }
+}
+
+.event-calendar {
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding-left: 10px;
+    -webkit-text-decoration: #f35b3f double underline;
+    text-decoration: #f35b3f double underline;
+    border-bottom: 2px solid #D3D3D3;
+}
+
+.bg-own-dark {
+    background-color: #14171A;
+    padding-bottom: 1.5rem;
+}
+
+.showAllBtn{
+    display:block;
+    width:100%;
+    text-align:center;
+    border-top: 1px solid grey;
+    padding-top: 1%;
+}
+
+    .showAllBtn a {
+        font-size: 18px;
+    }
+
+        .showAllBtn a:hover {
+            text-decoration: none;
+            color: #f35b3f;
+        }
+
+.specialElectionOption a {
+    color: white;
+    text-decoration: solid;
+    text-decoration-color: #f35b3f;
 }

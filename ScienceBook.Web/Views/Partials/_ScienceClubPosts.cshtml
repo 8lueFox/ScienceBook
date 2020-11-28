@@ -1,6 +1,6 @@
 ﻿@foreach (var item in ViewBag.Posts)
 {
-    <div class="cloud">
+    <div class="cloud ml-5 mr-5">
         <div class="postLogo">
             <a href="/ScienceClubs/Details/@item.ScienceClubID">
                 <img src="@ViewBag.Logo" class="logo-sm" />
@@ -10,7 +10,7 @@
             <span class="font-weight-bold">@item.Title</span><br />
             <span>@item.PublicationDay.ToString("dddd, dd MMMM yyyy HH:mm")</span>
         </div>
-        <div class="postText mt-4">
+        <div class="postText mt-4" style="white-space: pre-line">
             @Html.Raw(item.Text)
         </div>
         <div class="postImg">

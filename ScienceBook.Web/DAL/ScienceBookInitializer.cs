@@ -251,6 +251,51 @@ namespace ScienceBook.Web.DAL
                 DayOfJoin = DateTime.Now
             });
             context.SaveChanges();
+
+            var sClub = context.ScienceClubs.Find(1);
+            var mailingList = new List<MailingList>
+            {
+                new MailingList
+                {
+                    ScienceClub = sClub,
+                    Email = "kacper_spam@int.pl",
+                    Firm = "XYZ",
+                    FirstName = "Adam",
+                    LastName = "Nowak"
+                },
+                new MailingList
+                {
+                    ScienceClub = sClub,
+                    Email = "kacper_spam@int1.pl",
+                    Firm = "XYZ1",
+                    FirstName = "Adam1",
+                    LastName = "Nowak1"
+                },new MailingList
+                {
+                    ScienceClub = sClub,
+                    Email = "kacper_spam@int2.pl",
+                    Firm = "XYZ2",
+                    FirstName = "Adam2",
+                    LastName = "Nowak2"
+                }
+                ,new MailingList
+                {
+                    ScienceClub = sClub,
+                    Email = "kacper_spam@int3.pl",
+                    Firm = "XYZ3",
+                    FirstName = "Adam3",
+                    LastName = "Nowak3"
+                },new MailingList
+                {
+                    ScienceClub = sClub,
+                    Email = "kacper_spam@int4.pl",
+                    Firm = "XYZ4",
+                    FirstName = "Adam4",
+                    LastName = "Nowak4"
+                }
+            };
+            mailingList.ForEach(ml => context.MailingList.Add(ml));
+            context.SaveChanges();
         }
     }
 }

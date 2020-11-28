@@ -1,0 +1,94 @@
+﻿@model ScienceBook.Web.Models.DbModels.ScienceClub
+
+@{
+    ViewBag.Title = "ShowAll";
+    DateTime lastDay = DateTime.MinValue;
+    var events = Model.Events.OrderBy(e => e.StartDay);
+    var otherColor = true;
+}
+
+<div class="profileInfo">
+    <div class="profileLogo">
+        <span style="float:left;"><img src="@ViewBag.Logo" /></span>
+        <span class="profileName mt-6 ml-2">
+            <span class="font-weight-bold h4">@Model.Name</span>
+            <span class="font-italic">@Model.CategoryOfScienceClub.Name</span>
+        </span>
+    </div>
+</div>
+
+<div class="profileContainer">
+    <div class="hundredPercent">
+        <div class="cloud row" style="background-color: #14171A">
+            <div class="col-sm-12 col-md-6" style="border-right:2px solid white;">
+                <h4>Terminarz</h4>
+                @foreach (var item in events)
+                {
+                    if (lastDay == DateTime.MinValue)
+                    {
+                        lastDay = item.StartDay;
+                        <div class="text-muted"><b>@lastDay.ToString("dddd, dd MMMM yyyy")</b></div>
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+
+                    }
+                    else if (lastDay.Day == item.StartDay.Day && lastDay.Month == item.StartDay.Month && lastDay.Year == item.StartDay.Year)
+                    {
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                    }
+                    else
+                    {
+                        lastDay = item.StartDay;
+                        <div class="text-muted"><b>@lastDay.ToString("dddd, dd MMMM yyyy")</b></div>
+                        if (otherColor)
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px; background-color: #27282A;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                        else
+                        {
+                            <div class="event-calendar" onclick="changeEvent(@item.ID);" style="font-size:18px;">@item.Name</div>
+                            otherColor = otherColor ? false : true;
+                        }
+                    }
+                }
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <h4>Opis wydarzenia</h4>
+                <div id="target">
+                    @{
+                        Html.RenderAction("ScienceClubEvent", "Partials", new { id = 1 });
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var xmlHttp = new XMLHttpRequest();
+    var target = document.getElementById("target");
+
+    function changeEvent(id) {
+        xmlHttp.open("GET", "/Partials/ScienceClubEvent?id=" + id, false);
+        xmlHttp.send(null);
+        target.innerHTML = xmlHttp.responseText;
+    }
+</script>
