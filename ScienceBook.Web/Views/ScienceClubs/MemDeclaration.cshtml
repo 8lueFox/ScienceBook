@@ -1,0 +1,63 @@
+﻿@model ScienceBook.Web.Models.DbModels.MembershipDeclaration
+@{
+    ViewBag.Title = Model.ScienceClub.Name + " - Deklaracja członkostwa";
+}
+
+<div class="container mt-5" style="background-color: white; color:black; border-radius: 25px;">
+    <div class="row">
+        <div class="col-md-6 mt-5">
+            <p>@Model.ScienceClub.Name</p>
+            <p>@Model.ScienceClub.Department.Name</p>
+            <p>@Model.ScienceClub.Department.University.Name</p>
+        </div>
+        <div class="col-md-6 text-right">
+            <img src="@ViewBag.Logo" width="200px" />
+        </div>
+        <div class="col-md-12 text-center">
+            <h2 class="mb-5">DEKLARACJA CZŁONKOWSKA</h2>
+            <p>Niniejszym, składam wniosek o przyjęcie mnie w poczet członków Koła Naukowego <i>@Model.ScienceClub.Name</i></p>
+            funkcjonującego w @Model.ScienceClub.Department.Name @Model.ScienceClub.Department.University.Name
+        </div>
+        @using (Html.BeginForm("IssueMembershipDeclaration", "ScienceClubs"))
+        {
+            <input id="ScienceClubID" name="ScienceClubID" type="hidden" value="@Model.ScienceClub.ID">
+            <input id="MemberID" name="MemberID" type="hidden" value="@Model.Member.ID">
+            <input id="DayOfCreate" name="DayOfCreate" type="hidden" value="@Model.DayOfCreate">
+            <div class="col-md-12">
+                <p>1. Imię i nazwisko: <b>@Model.Member.FirstName @Model.Member.LastName</b></p>
+                <p>2. Kierunek: <b>@Model.Member.FieldOfStudy.Name</b></p>
+                <p>3. Adres email: <b>@Model.Member.Email</b></p>
+                <p>4. Zainteresowania: <input type="text" class="form-control" name="interests" placeholder="Wpisz przynajmniej 1 zainteresowanie. Kolejne oddzielaj przecinkami." /></p>
+            </div>
+            <div class="col-md-12 font-weight-light text-center">
+                Wyrażam zgodę na przetwarzanie powyższych danych osobowych w celach związanych z uzyskaniem członkostwa i dla spraw organizacyjnych KNPZ, zgodnie z Ustawą z dn. 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U. z 2002 r. Nr 101 poz. 926, z późn. zm)
+            </div>
+            <div class="col-md-12 row">
+                <div class="col-md-6">
+                    Data: @Model.DayOfCreate.ToString("d")
+                </div>
+                <div class="col-md-6">
+                    Podpis
+                    <button class="btn btn-sm btn-outline-dark">Podpisz</button>
+                </div>
+            </div>
+        }
+        <div class="col-md-12 text-center">
+            <h2 class="mb-5">UCHWAŁA ZARZĄDU KOŁA</h2>
+            <p>
+                Zarząd postanawia rozpatrzyć powyższy wniosek pozytywnie / negatywnie.<br /><small>(Zostanie zaznaczone po rozpatrzeniu zarządu.)</small>
+            </p>
+        </div>
+        <div class="col-md-12 row">
+            <div class="col-md-6 text-center">
+                Data: ..............................
+            </div>
+            <div class="col-md-6 text-center">
+                Podpis Członka Zarządu<br />
+                ......................
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,8 +1,50 @@
 ﻿@{
     var id = 0;
 }
+<h2 class="subhead-heading">Nowe zgłoszenia</h2>
+
+<div class="row underlineDiv mb-2">
+    <div class="memberInfo col-md-4">
+        Dane 
+    </div>
+    <div class="memberStat col-md-4">
+        Data wpłynięcia
+    </div>
+    <div class="memberSettings col-md-4">
+        
+    </div>
+</div>
+
+@foreach (var item in ViewBag.MembershipDeclarations)
+{
+    <div class="row">
+        <div class="memberInfo col-md-4">
+            @item.Member.FirstName @item.Member.LastName (@item.Member.Username)
+        </div>
+        <div class="memberStat col-md-4">
+            @item.DayOfCreate.ToString("d")
+        </div>
+        <div class="memberSettings col-md-4">
+            <a href="/ScienceClubs/IssuedMembershipDeclaration/@item.ID">
+                <button class="btn btn-outline-light"><i class="far fa-eye"></i></button>
+            </a>
+        </div>
+    </div>
+}
 
 <h2 class="subhead-heading">Członkowie</h2>
+
+<div class="row underlineDiv mb-2">
+    <div class="memberInfo col-md-4">
+        Dane
+    </div>
+    <div class="memberStat col-md-4">
+        Statystki
+    </div>
+    <div class="memberSettings col-md-4">
+        Rola
+    </div>
+</div>
 
 @foreach (var item in ViewBag.Members)
 {

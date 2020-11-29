@@ -45,6 +45,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,12 +119,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -196,6 +196,7 @@
     <Compile Include="Models\DbModels\FieldOfStudy.cs" />
     <Compile Include="Models\DbModels\MailingList.cs" />
     <Compile Include="Models\DbModels\Member.cs" />
+    <Compile Include="Models\DbModels\MembershipDeclaration.cs" />
     <Compile Include="Models\DbModels\OptionsInElection.cs" />
     <Compile Include="Models\DbModels\Post.cs" />
     <Compile Include="Models\DbModels\Role.cs" />
@@ -296,12 +297,13 @@
     <Content Include="Views\ScienceClubs\Management.cshtml" />
     <Content Include="Views\ScienceClubManagement\_Members.cshtml" />
     <Content Include="Views\ScienceClubManagement\_General.cshtml" />
-    <Content Include="Views\ScienceClubs\MembershipDeclaration.cshtml" />
     <Content Include="Views\Events\AddEvent.cshtml" />
     <Content Include="Views\Events\ShowAll.cshtml" />
     <Content Include="Views\Partials\_ScienceClubEvent.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Account\LoginIndex.cshtml" />
+    <Content Include="Views\ScienceClubs\MemDeclaration.cshtml" />
+    <Content Include="Views\ScienceClubs\IssuedMembershipDeclaration.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

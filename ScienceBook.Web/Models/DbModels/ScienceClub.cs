@@ -29,5 +29,6 @@ namespace ScienceBook.Web.Models.DbModels
         public virtual List<Post> Posts { get; set; }
         public virtual List<Event> Events { get; set; }
         public virtual List<MailingList> MailingList { get; set; }
+        public virtual List<MembershipDeclaration> MembershipDeclarations { get; set; }
     }
 }

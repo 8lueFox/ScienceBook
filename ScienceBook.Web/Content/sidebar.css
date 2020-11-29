@@ -31,7 +31,7 @@ body {
         height: 100%;
         z-index: 999;
         transition: all 0.3s ease;
-        background: #14171A;
+        background: #1e1e1e;
         border-right: 2px solid #F5F8FA;
     }
 

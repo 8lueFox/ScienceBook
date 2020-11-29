@@ -27,6 +27,9 @@ namespace ScienceBook.Web.Controllers
             {
                 membersRole.Add(sc.ScienceClub_Member_Roles.Where(smr => smr.MemberID == item.ID).First().Role.Name);
             }
+            ViewBag.MembershipDeclarations = db.MembershipDeclarations
+                                               .Where(m => m.ScienceClubID == sc.ID && m.DateOfConsideration.Year < 1000)
+                                               .ToList();
             ViewBag.Members = sc.Members.ToList();
             ViewBag.MembersRole = membersRole;
             ViewBag.Roles = db.Roles.Where(r => r.ScienceClubID == id).ToList();

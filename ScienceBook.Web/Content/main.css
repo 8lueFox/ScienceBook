@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins');
 
 body, html {
-    background-color: #14171A;
+    background-color: #1e1e1e;
     color: #F5F8FA;
 }
 .wrapperLogin {
@@ -297,7 +297,7 @@ body, html {
     display: flex;
     justify-content: space-around;
     padding-bottom: 30px;
-    background-color: #27282A;
+    background-color: #2B2B2B;
     border-bottom: 2px solid white;
 }
 
@@ -321,13 +321,13 @@ body, html {
 .profileContainer {
     display: flex;
     justify-content: flex-start;
-    background-color: #14171A;
+    background-color: #1e1e1e;
 }
 
 .profileMain {
     width: 60%;
     min-height: 75vh;
-    background-color: #14171A;
+    background-color: #1e1e1e;
 }
 
 .profileSidebar {
@@ -339,7 +339,7 @@ body, html {
 
 .sidebar-right {
     width: 40%;
-    background-color: #14171A;
+    background-color: #1e1e1e;
     border-left: 2px solid #F5F8FA;
     position: -webkit-sticky;
     position: sticky;
@@ -392,7 +392,7 @@ body, html {
 
 .cloud {
     padding: 20px;
-    background-color: #27282A;
+    background-color: #2B2B2B;
     border-radius: 8px;
     margin-top: 1rem;
     margin-left: 1rem;
@@ -640,7 +640,7 @@ body, html {
     display: block;
     margin-bottom: 16px;
     list-style: none;
-    background-color: #fff;
+    background-color: #2B2B2B;
     border: 1px solid #e1e4e8;
     border-radius: 6px;
 }
@@ -649,7 +649,7 @@ body, html {
         position: relative;
         display: block;
         padding: 8px 16px;
-        color: #24292e;
+        color: #FFF;
         border-bottom: 1px solid #eaecef;
         text-decoration: none;
     }
@@ -672,7 +672,7 @@ footer {
     text-align: center;
     font-weight: 700;
     color: grey;
-    background-color: #14171A;
+    background-color: #1e1e1e;
 }
 
 .seventyPercent {
@@ -711,7 +711,7 @@ footer {
 }
 
 .bg-own-dark {
-    background-color: #14171A;
+    background-color: #1e1e1e;
     padding-bottom: 1.5rem;
 }
 
@@ -736,4 +736,8 @@ footer {
     color: white;
     text-decoration: solid;
     text-decoration-color: #f35b3f;
+}
+
+.underlineDiv{
+    border-bottom: 1px solid #fff;
 }

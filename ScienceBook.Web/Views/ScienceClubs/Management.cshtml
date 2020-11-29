@@ -3,40 +3,27 @@
 @{
     ViewBag.Title = Model.Name + " - Management";
 }
-<div class="clubProfile">
-    <div class="info row">
-        <div class="col-md-2"></div>
-        <div class="col-md-4">
-            <a href="/ScienceClubs/Details/@Model.ID" style="text-decoration: none; color: #212529">
-                <div class="clubLogo">
-                    <img src="@ViewBag.Logo" />
-                </div>
-                <div class="clubName">
-                    <div class="name">
-                        @Model.Name
-                    </div>
-                    <div class="category">
-                        @Model.CategoryOfScienceClub.Name
-                    </div>
-                </div>
-            </a>
-        </div>
-        <hr style="width:70%; margin-left:15%;" />
+<div class="profileInfo">
+    <div class="profileLogo">
+        <span style="float:left;"><img src="@ViewBag.Logo" /></span>
+        <span class="profileName mt-6 ml-2">
+            <span class="font-weight-bold h4">@Model.Name</span>
+            <span class="font-italic">@Model.CategoryOfScienceClub.Name</span>
+        </span>
     </div>
-
-    <div class="data row">
-        <div class="col-md-3">
-            <div class=" menuSettings ml-5 mt-4">
-                <a href="#" class="selected">Options</a>
-                <a href="#">Manage access</a>
-                <a href="#" id="members">Członkowie</a>
-            </div>
+</div>
+<div class="profileContainer row">
+    <div class="col-md-3">
+        <div class="menuSettings ml-5 mt-4">
+            <a href="#" class="selected">Options</a>
+            <a href="#">Manage access</a>
+            <a href="#" id="members">Członkowie</a>
         </div>
-        <div class="col-md-9 mt-4" id="updateSection">
-            @{
-                Html.RenderAction("General", "ScienceClubManagement", new { id = Model.ID });
-            }
-        </div>
+    </div>
+    <div class="col-md-9 mt-4" id="updateSection">
+        @{
+            Html.RenderAction("General", "ScienceClubManagement", new { id = Model.ID });
+        }
     </div>
 </div>
 <script>
